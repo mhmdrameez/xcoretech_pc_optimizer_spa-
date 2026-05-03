@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>XCoreTech PC Optimizer | ₹399 One-Time • Direct UPI Payment</title>
-    <!-- Tailwind CSS + Font Awesome + Google Fonts + QR Code Library -->
+    <title>XCoreTech PC Optimizer | Windows Cleaner, Startup Booster & PC Speed Tool</title>
+    <meta name="description" content="XCoreTech PC Optimizer helps clean junk files, improve startup speed, reduce clutter, and keep Windows PCs running faster with safe, privacy-first optimization tools.">
+    <meta name="keywords" content="PC optimizer, Windows cleaner, startup booster, junk file cleaner, system optimizer, Windows performance tool, XCoreTech">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="XCoreTech PC Optimizer">
+    <meta property="og:description" content="A safe Windows PC cleaner and startup optimizer built for faster, cleaner, more reliable everyday performance.">
+    <meta property="og:type" content="website">
+    <!-- Tailwind CSS + Font Awesome + Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         body { background: #0a0e17; scroll-behavior: smooth; }
@@ -27,9 +33,34 @@
         .whatsapp-btn { background: #25D366; transition: 0.2s; }
         .whatsapp-btn:hover { background: #128C7E; transform: translateY(-2px); }
         .pro-badge { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px; display: inline-block; }
+        .boot-loader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 30%, #17213a 0%, #0a0e17 48%, #04070d 100%); transition: opacity 0.75s ease, visibility 0.75s ease; }
+        .boot-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+        .boot-loader canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .boot-copy { position: relative; z-index: 2; width: min(92vw, 540px); margin-top: min(48vh, 360px); text-align: center; pointer-events: none; }
+        .boot-stage { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.8rem; border: 1px solid rgba(34,211,238,0.28); border-radius: 999px; background: rgba(10,14,23,0.62); color: #67e8f9; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(12px); }
+        .boot-headline { margin-top: 1rem; font-size: clamp(2rem, 5vw, 4.25rem); line-height: 0.95; font-weight: 900; letter-spacing: 0; }
+        .boot-subline { margin: 0.85rem auto 0; max-width: 420px; color: #b6c4d8; font-size: clamp(0.95rem, 2.2vw, 1.08rem); line-height: 1.55; }
+        .boot-meter { width: min(74vw, 360px); height: 7px; margin: 1.35rem auto 0; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,0.1); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+        .boot-meter span { display: block; width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #ef4444, #22d3ee, #22c55e); transition: width 0.35s ease; }
+        .boot-skip { position: absolute; top: 1rem; right: 1rem; z-index: 3; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 0.55rem 0.9rem; background: rgba(255,255,255,0.06); color: #dbeafe; font-size: 0.82rem; font-weight: 700; transition: 0.2s ease; }
+        .boot-skip:hover { background: rgba(255,255,255,0.12); color: #ffffff; }
+        @media (max-width: 640px) {
+            .boot-copy { margin-top: min(46vh, 310px); }
+            .boot-skip { top: 0.75rem; right: 0.75rem; }
+        }
     </style>
 </head>
 <body class="text-white">
+    <div id="bootLoader" class="boot-loader" aria-label="XCoreTech PC optimization animation">
+        <canvas id="bootCanvas"></canvas>
+        <button id="skipBootLoader" class="boot-skip" type="button">Skip</button>
+        <div class="boot-copy">
+            <div class="boot-stage"><i class="fa-solid fa-microchip"></i><span id="bootStage">System hang detected</span></div>
+            <h2 id="bootHeadline" class="boot-headline">Frozen PC</h2>
+            <p id="bootSubline" class="boot-subline">XCoreTech finds the clutter, clears the drag, and brings the machine back to speed.</p>
+            <div class="boot-meter" aria-hidden="true"><span id="bootMeter"></span></div>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-[#0a0e17]/80 backdrop-blur-lg border-b border-white/10 transition-all">
@@ -43,7 +74,7 @@
             </div>
             <div class="hidden md:flex gap-3">
                 <a href="#" class="download-exe-btn px-5 py-2 rounded-lg border border-white/20 hover:bg-white/5 transition">Free Download</a>
-                <button id="openPayModalBtn" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition shadow-lg"><i class="fa-solid fa-key mr-2"></i> Activate Pro ₹399</button>
+                <button id="openProModalBtn" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition shadow-lg"><i class="fa-solid fa-key mr-2"></i> Unlock Pro</button>
             </div>
             <div class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></div>
         </div>
@@ -59,15 +90,15 @@
                     <i class="fa-solid fa-shield-halved"></i> Trusted by <span id="live-user-count" class="font-bold">--</span> active users
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Boost Your PC Performance <span class="gradient-text">Instantly.</span></h1>
-                <p class="text-gray-400 text-lg mt-5 max-w-xl mx-auto lg:mx-0">Intelligent automatic cleaning, advanced startup optimization, and secure system tuning. Experience a faster, cleaner Windows PC — one-time payment, no subscription.</p>
+                <p class="text-gray-400 text-lg mt-5 max-w-xl mx-auto lg:mx-0">Clean junk, speed up startup, and keep Windows running smoothly with privacy-first optimization built for everyday users, gamers, students, and professionals.</p>
                 <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
                     <a href="#" class="download-exe-btn bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2 pulse"><i class="fa-solid fa-download"></i> Download Free</a>
-                    <button id="heroPayBtn" class="bg-white/5 border border-white/15 hover:bg-white/10 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2"><i class="fa-solid fa-crown"></i> Pro Version ₹399/Lifetime</button>
+                    <button id="heroProBtn" class="bg-white/5 border border-white/15 hover:bg-white/10 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2"><i class="fa-solid fa-crown"></i> Explore Pro Benefits</button>
                 </div>
                 <div class="flex flex-wrap gap-5 justify-center lg:justify-start text-sm text-gray-400 mt-8">
-                    <span><i class="fa-solid fa-check text-green-500"></i> Free forever base</span>
-                    <span><i class="fa-solid fa-check text-green-500"></i> No admin needed</span>
-                    <span><i class="fa-solid fa-check text-green-500"></i> 100% safe & private</span>
+                    <span><i class="fa-solid fa-check text-green-500"></i> Free starter version</span>
+                    <span><i class="fa-solid fa-check text-green-500"></i> Built for Windows 10/11</span>
+                    <span><i class="fa-solid fa-check text-green-500"></i> Safe and privacy-first</span>
                 </div>
             </div>
             <div class="flex-1 flex justify-center">
@@ -106,12 +137,12 @@
             <p class="text-gray-400 mt-3 max-w-xl mx-auto">Powerful tools designed to keep your system at peak performance.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-rocket"></i></div><h3 class="text-xl font-semibold">Fast Parallel Scanning</h3><p class="text-gray-400 text-sm mt-2">Multi-threaded engine rapidly finds hidden junk files in seconds.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-trash-can-arrow-up"></i></div><h3 class="text-xl font-semibold">Safe Deletion Pipeline</h3><p class="text-gray-400 text-sm mt-2">Intelligent algorithms ensure only redundant files are removed.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-robot"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Autonomous Cleaning <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Set & forget: cleans silently when idle.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-gauge-high"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Startup Optimization <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Disable bloatware, reduce boot time by up to 19%.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-key"></i></div><h3 class="text-xl font-semibold">Secure Licensing</h3><p class="text-gray-400 text-sm mt-2">Encrypted lifetime key, cross-device support.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-chart-line"></i></div><h3 class="text-xl font-semibold">Real-Time Analytics</h3><p class="text-gray-400 text-sm mt-2">Track performance gains with detailed metrics.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-rocket"></i></div><h3 class="text-xl font-semibold">Fast PC Health Scan</h3><p class="text-gray-400 text-sm mt-2">Find hidden junk, cache buildup, and slowdown points before they affect your work.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-trash-can-arrow-up"></i></div><h3 class="text-xl font-semibold">Careful Junk Cleaning</h3><p class="text-gray-400 text-sm mt-2">Remove clutter confidently with safe cleanup rules designed for everyday Windows PCs.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-robot"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Smart Auto Clean <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Keep your PC lighter in the background without repeating the same cleanup work.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-gauge-high"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Startup Booster <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Reduce unnecessary startup load so Windows feels quicker when you turn it on.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-shield-halved"></i></div><h3 class="text-xl font-semibold">Privacy-First Design</h3><p class="text-gray-400 text-sm mt-2">Built to improve your computer without tracking your personal files or browsing habits.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-chart-line"></i></div><h3 class="text-xl font-semibold">Clear Performance Insights</h3><p class="text-gray-400 text-sm mt-2">See what was cleaned and understand the value of each optimization.</p></div>
         </div>
     </section>
 
@@ -119,11 +150,11 @@
     <section id="howitworks" class="px-6 py-20 max-w-5xl mx-auto">
         <div class="text-center mb-14"><h2 class="text-3xl md:text-4xl font-bold">Simple <span class="gradient-text">3-Step</span> Process</h2><p class="text-gray-400">From cluttered to optimized in a few clicks.</p></div>
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500 shadow-lg"><i class="fa-solid fa-magnifying-glass-chart"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">1</div></div><h3 class="text-xl font-bold mt-4">Scan</h3><p class="text-gray-400 text-sm">Deep system analysis identifies accumulated junk.</p></div>
+            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500 shadow-lg"><i class="fa-solid fa-magnifying-glass-chart"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">1</div></div><h3 class="text-xl font-bold mt-4">Scan</h3><p class="text-gray-400 text-sm">Identify junk files, cache buildup, and startup slowdown points.</p></div>
             <div class="hidden md:block text-3xl text-gray-600"><i class="fa-solid fa-arrow-right"></i></div>
-            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500"><i class="fa-solid fa-broom"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">2</div></div><h3 class="text-xl font-bold mt-4">Clean</h3><p class="text-gray-400 text-sm">Safe deletion pipeline removes bloat.</p></div>
+            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500"><i class="fa-solid fa-broom"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">2</div></div><h3 class="text-xl font-bold mt-4">Clean</h3><p class="text-gray-400 text-sm">Remove clutter safely and free up storage for things that matter.</p></div>
             <div class="hidden md:block text-3xl text-gray-600"><i class="fa-solid fa-arrow-right"></i></div>
-            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500"><i class="fa-solid fa-bolt"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">3</div></div><h3 class="text-xl font-bold mt-4">Optimize</h3><p class="text-gray-400 text-sm">Startup & memory tweaks for max speed.</p></div>
+            <div class="text-center flex-1"><div class="relative inline-block"><div class="step-icon w-20 h-20 rounded-full flex items-center justify-center text-3xl text-blue-400 bg-[#0a0e17] mx-auto border-2 border-blue-500"><i class="fa-solid fa-bolt"></i></div><div class="absolute -top-2 -right-2 bg-blue-600 w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center">3</div></div><h3 class="text-xl font-bold mt-4">Optimize</h3><p class="text-gray-400 text-sm">Tune startup behavior so your PC feels faster every day.</p></div>
         </div>
     </section>
 
@@ -135,16 +166,16 @@
         </div>
     </section>
 
-    <!-- PRICING SECTION + DIRECT UPI PAYMENT (NO THIRD PARTY) -->
+    <!-- Pricing Section -->
     <section id="pricing" class="px-6 py-20 max-w-5xl mx-auto">
-        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold">One‑Time <span class="gradient-text">₹399</span> • Lifetime Pro</h2><p class="text-gray-400 max-w-xl mx-auto">No subscriptions, no hidden fees. Pay once, own forever. <strong class="text-white">Direct UPI payment → Money goes directly to seller's bank account.</strong> No middleman.</p></div>
+        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold">Upgrade to <span class="gradient-text">Lifetime Pro</span></h2><p class="text-gray-400 max-w-xl mx-auto">For people who want a faster, cleaner Windows PC without complicated settings. Start free, then unlock advanced automation when you need deeper performance care.</p></div>
         <div class="flex flex-col md:flex-row gap-8 justify-center">
             <!-- Free Card -->
             <div class="glass-card rounded-2xl p-8 flex-1 max-w-sm mx-auto w-full"><h3 class="text-2xl font-bold">Free Edition</h3><div class="mt-4"><span class="text-4xl font-bold">₹0</span><span class="text-gray-400"> / lifetime</span></div><p class="text-gray-400 text-sm mt-2">Basic manual cleanup</p><ul class="mt-6 space-y-3"><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Fast Parallel Scanning</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Safe Deletion Pipeline</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> System Analytics</li><li class="flex gap-2 opacity-50"><i class="fa-solid fa-xmark text-gray-500 mt-1"></i> Auto Background Cleaning</li><li class="flex gap-2 opacity-50"><i class="fa-solid fa-xmark text-gray-500 mt-1"></i> Startup Optimizer</li></ul><a href="#" class="download-exe-btn mt-8 block text-center border border-white/20 py-3 rounded-xl hover:bg-white/5 transition">Download Free</a></div>
-            <!-- PRO Card ₹399 - Direct UPI -->
-            <div class="relative glass-card rounded-2xl p-8 flex-1 max-w-sm mx-auto w-full border-blue-500/40 shadow-xl shadow-blue-500/10 transform md:scale-105 z-10"><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full">🔥 MOST POPULAR</div><h3 class="text-2xl font-bold mt-2">💎 Pro Lifetime</h3><div class="mt-4"><span class="text-5xl font-extrabold gradient-text">₹399</span><span class="text-gray-400 ml-2"> one-time</span></div><p class="text-green-400 text-sm mt-1"><i class="fa-solid fa-infinity"></i> Direct UPI (Seller receives full amount)</p><ul class="mt-6 space-y-3"><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> 1-Click Auto Clean (scheduled)</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Deep Clean: temp + cache + hidden junk</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Startup Boost & Boot Time Optimizer</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Ad‑free, full speed, no tracking</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Lifetime updates & priority support</li></ul>
-                <button id="proPayBtn" class="mt-8 w-full text-center bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition pulse shadow-lg"><i class="fa-solid fa-indian-rupee-sign mr-2"></i> Pay ₹399 via UPI (Direct)</button>
-                <p class="text-xs text-gray-400 text-center mt-4"><i class="fa-solid fa-shield-heart"></i> No third-party processor — Pay directly to <span class="text-cyan-300">muhammedrameez2000-7@okaxis</span>. After payment, send screenshot to email/WhatsApp to get your Pro license key.</p></div>
+            <!-- Pro Card -->
+            <div class="relative glass-card rounded-2xl p-8 flex-1 max-w-sm mx-auto w-full border-blue-500/40 shadow-xl shadow-blue-500/10 transform md:scale-105 z-10"><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full">BEST VALUE</div><h3 class="text-2xl font-bold mt-2">Pro Lifetime</h3><div class="mt-4"><span class="text-5xl font-extrabold gradient-text">₹399</span><span class="text-gray-400 ml-2"> lifetime access</span></div><p class="text-green-400 text-sm mt-1"><i class="fa-solid fa-infinity"></i> Advanced cleanup, startup boost, and priority help</p><ul class="mt-6 space-y-3"><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> 1-click scheduled auto clean</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Deep clean for temp files, cache, and hidden junk</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Startup boost and boot-time optimization</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Ad-free experience with privacy-first design</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Lifetime updates and priority support</li></ul>
+                <button id="proAccessBtn" class="mt-8 w-full text-center bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition pulse shadow-lg"><i class="fa-solid fa-crown mr-2"></i> Request Pro Access</button>
+                <p class="text-xs text-gray-400 text-center mt-4"><i class="fa-solid fa-shield-heart"></i> Built for users who value speed, privacy, and a cleaner Windows experience without monthly software clutter.</p></div>
         </div>
     </section>
 
@@ -152,29 +183,30 @@
     <section id="download" class="px-6 py-20 max-w-4xl mx-auto text-center"><div class="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-3xl p-10 border border-white/10"><h2 class="text-3xl md:text-4xl font-bold">Experience a Faster, Cleaner PC.</h2><p class="text-gray-300 mt-3">Join <span id="cta-user-count">--</span> users who already optimized with XCoreTech.</p><div class="mt-8"><a href="#" class="download-exe-btn bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl inline-flex items-center gap-3 text-lg font-bold"><i class="fa-brands fa-windows text-2xl"></i> Download for Windows (Free)</a></div><p class="text-gray-500 text-sm mt-6" id="app-version-info">Fetching latest release...</p></div></section>
 
     <!-- ========== FIXED RESPONSIVE MODAL (CENTERED, SCROLLABLE) ========== -->
-    <div id="paymentModal" class="fixed inset-0 z-50 hidden modal-bg items-center justify-center p-4 overflow-y-auto">
+    <div id="proAccessModal" class="fixed inset-0 z-50 hidden modal-bg items-center justify-center p-4 overflow-y-auto">
         <div class="w-full max-w-md mx-auto bg-[#0f141f] rounded-2xl border border-gray-700 shadow-2xl dialog-enter my-auto">
             <div class="flex justify-between items-center p-4 border-b border-gray-700">
-                <h3 class="text-lg sm:text-xl font-bold gradient-text">₹399 / Lifetime Pro</h3>
+                <h3 class="text-lg sm:text-xl font-bold gradient-text">XCoreTech Pro Access</h3>
                 <button id="closeModalBtn" class="text-gray-400 text-2xl hover:text-white transition">&times;</button>
             </div>
             <div class="p-4 space-y-4 text-sm sm:text-base">
-                <div class="text-center text-green-400">Money directly goes to seller:<br><span class="text-white font-semibold break-all">muhammedrameez2000-7@okaxis</span></div>
+                <div class="text-center text-green-400 font-semibold">Upgrade when you are ready for deeper cleanup, automation, and priority help.</div>
                 <div class="bg-[#111827] p-4 rounded-xl border border-blue-500/20 space-y-3">
-                    <div class="font-semibold">UPI Details (Pay to this ID):</div>
-                    <div><div class="text-gray-400">UPI ID:</div><div class="flex flex-col sm:flex-row sm:items-center gap-2 mt-1"><span id="sellerUpiIdDisplay" class="font-mono text-cyan-300 break-all">muhammedrameez2000-7@okaxis</span><button id="copyUpiId" class="text-xs bg-gray-700 px-2 py-1 rounded w-fit hover:bg-gray-600 transition">Copy</button></div></div>
-                    <div class="flex justify-between"><span class="text-gray-400">Amount:</span><span class="font-bold">₹399.00 INR</span></div>
-                    <div class="text-xs text-gray-400">Scan QR or click UPI button, complete payment.<br>After payment, send screenshot (transaction ID) to get your license key.</div>
+                    <div class="font-semibold">What Pro adds</div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Scheduled auto cleaning for less manual work</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Startup optimization for faster daily use</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Priority support for setup and activation</li>
+                    </ul>
                 </div>
-                <div class="flex justify-center"><div id="qrcodeContainer" class="bg-white p-2 rounded-xl"></div></div>
-                <a id="upiDeepLinkBtn" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-center py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition"><i class="fa-brands fa-google-pay"></i> Pay with UPI App (GPay/PhonePe/Paytm)</a>
+                <a href="mailto:xcoretech@yahoo.com?subject=XCoreTech%20Pro%20Access" class="w-full bg-blue-600 hover:bg-blue-700 text-center py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition"><i class="fa-solid fa-envelope"></i> Contact Support</a>
                 <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/20 text-center text-sm">
-                    <div class="font-semibold mb-2">Send payment proof & your email to:</div>
+                    <div class="font-semibold mb-2">Need help choosing or activating Pro?</div>
                     <div class="flex flex-col gap-2">
-                        <a href="mailto:xcoretech@yahoo.com" class="bg-gray-800 py-2 rounded-lg hover:bg-gray-700 transition">📧 Email: xcoretech@yahoo.com</a>
+                        <a href="mailto:xcoretech@yahoo.com" class="bg-gray-800 py-2 rounded-lg hover:bg-gray-700 transition">Email: xcoretech@yahoo.com</a>
                         <a href="https://wa.me/919446960834" target="_blank" class="whatsapp-btn py-2 rounded-lg text-white font-semibold flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp"></i> WhatsApp Business: +91 9446960834</a>
                     </div>
-                    <div class="text-xs text-gray-400 mt-3">We will send your lifetime activation key within 2–12 hours after verification.</div>
+                    <div class="text-xs text-gray-400 mt-3">Share your email and device details so support can guide you quickly.</div>
                 </div>
             </div>
         </div>
@@ -183,6 +215,227 @@
     <footer class="border-t border-white/10 py-12 px-6 text-center text-gray-500 text-sm"><div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4"><div>© 2026 XCoreTech PC Optimizer</div><div class="flex gap-6"><a href="#" class="hover:text-white">Privacy</a><a href="#" class="hover:text-white">Terms</a><a href="mailto:xcoretech@yahoo.com" class="hover:text-white">Support</a></div></div></footer>
 
     <script>
+        function initBootExperience() {
+            const loader = document.getElementById("bootLoader");
+            const canvas = document.getElementById("bootCanvas");
+            const skipBtn = document.getElementById("skipBootLoader");
+            const stageText = document.getElementById("bootStage");
+            const headline = document.getElementById("bootHeadline");
+            const subline = document.getElementById("bootSubline");
+            const meter = document.getElementById("bootMeter");
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            let animationId = null;
+            let isClosed = false;
+
+            if (!loader) return;
+
+            const closeLoader = () => {
+                if (isClosed) return;
+                isClosed = true;
+                loader.classList.add("is-done");
+                document.body.style.overflow = "";
+                if (animationId) cancelAnimationFrame(animationId);
+                setTimeout(() => loader.remove(), 900);
+            };
+
+            skipBtn?.addEventListener("click", closeLoader);
+            document.body.style.overflow = "hidden";
+
+            if (reducedMotion || !window.THREE || !canvas) {
+                if (stageText) stageText.textContent = "PC optimized";
+                if (headline) headline.textContent = "Ready to speed up";
+                if (meter) meter.style.width = "100%";
+                setTimeout(closeLoader, 900);
+                return;
+            }
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.2, 8);
+
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            scene.add(new THREE.AmbientLight(0x9fb7ff, 0.45));
+            const keyLight = new THREE.PointLight(0x22d3ee, 2.6, 18);
+            keyLight.position.set(-3, 4, 5);
+            scene.add(keyLight);
+            const speedLight = new THREE.PointLight(0x22c55e, 1.6, 14);
+            speedLight.position.set(3, -1, 3);
+            scene.add(speedLight);
+
+            const pc = new THREE.Group();
+            scene.add(pc);
+
+            const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.48, roughness: 0.28 });
+            const screenMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, emissive: 0x991b1b, emissiveIntensity: 0.95, metalness: 0.1, roughness: 0.2 });
+            const trimMat = new THREE.MeshStandardMaterial({ color: 0x1e40af, emissive: 0x1d4ed8, emissiveIntensity: 0.35, metalness: 0.35, roughness: 0.25 });
+
+            const monitor = new THREE.Mesh(new THREE.BoxGeometry(3.9, 2.35, 0.22), bodyMat);
+            pc.add(monitor);
+            const screen = new THREE.Mesh(new THREE.BoxGeometry(3.45, 1.9, 0.08), screenMat);
+            screen.position.z = 0.16;
+            pc.add(screen);
+            const stand = new THREE.Mesh(new THREE.BoxGeometry(0.38, 1.05, 0.22), bodyMat);
+            stand.position.set(0, -1.62, -0.02);
+            pc.add(stand);
+            const base = new THREE.Mesh(new THREE.BoxGeometry(2.25, 0.16, 0.9), bodyMat);
+            base.position.set(0, -2.18, 0.05);
+            pc.add(base);
+
+            const cpuCore = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.82, 0.14), trimMat);
+            cpuCore.position.set(0, 0.02, 0.24);
+            pc.add(cpuCore);
+
+            const lineMat = new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.8 });
+            const circuitLines = [];
+            for (let i = 0; i < 10; i++) {
+                const horizontal = i % 2 === 0;
+                const line = new THREE.Mesh(
+                    new THREE.BoxGeometry(horizontal ? 1.18 : 0.05, horizontal ? 0.05 : 0.92, 0.04),
+                    lineMat.clone()
+                );
+                line.position.set((Math.random() - 0.5) * 2.55, (Math.random() - 0.5) * 1.25, 0.29);
+                circuitLines.push(line);
+                pc.add(line);
+            }
+
+            const junk = [];
+            const junkMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0x7f1d1d, emissiveIntensity: 0.55, roughness: 0.7 });
+            for (let i = 0; i < 34; i++) {
+                const cube = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.14), junkMat.clone());
+                cube.position.set((Math.random() - 0.5) * 6.2, (Math.random() - 0.5) * 3.9, (Math.random() - 0.5) * 1.8 + 0.7);
+                cube.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+                cube.userData.home = cube.position.clone();
+                cube.userData.speed = 0.6 + Math.random() * 1.2;
+                junk.push(cube);
+                scene.add(cube);
+            }
+
+            const cleanParticles = [];
+            const particleMat = new THREE.MeshBasicMaterial({ color: 0x22d3ee, transparent: true, opacity: 0.85 });
+            for (let i = 0; i < 42; i++) {
+                const dot = new THREE.Mesh(new THREE.SphereGeometry(0.035, 12, 12), particleMat.clone());
+                dot.userData.angle = Math.random() * Math.PI * 2;
+                dot.userData.radius = 1.1 + Math.random() * 2.2;
+                dot.userData.height = (Math.random() - 0.5) * 2.2;
+                cleanParticles.push(dot);
+                scene.add(dot);
+            }
+
+            const rings = [];
+            for (let i = 0; i < 4; i++) {
+                const ring = new THREE.Mesh(
+                    new THREE.TorusGeometry(1.6 + i * 0.42, 0.018, 12, 96),
+                    new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0 })
+                );
+                ring.rotation.x = Math.PI / 2;
+                ring.position.z = -0.45 - i * 0.08;
+                rings.push(ring);
+                scene.add(ring);
+            }
+
+            const setCopy = (stage) => {
+                if (stage === 1) {
+                    stageText.textContent = "Cleaning hidden clutter";
+                    headline.textContent = "Deep Clean";
+                    subline.textContent = "Junk blocks break away while the core gets lighter, safer, and more responsive.";
+                } else if (stage === 2) {
+                    stageText.textContent = "Performance restored";
+                    headline.textContent = "Speed Unlocked";
+                    subline.textContent = "The system returns clean, quick, and ready for the next click.";
+                }
+            };
+
+            let currentStage = 0;
+            const clock = new THREE.Clock();
+
+            const animate = () => {
+                const t = clock.getElapsedTime();
+                const progress = Math.min(t / 5.2, 1);
+                if (meter) meter.style.width = `${Math.round(progress * 100)}%`;
+
+                if (t > 1.55 && currentStage === 0) {
+                    currentStage = 1;
+                    setCopy(1);
+                }
+                if (t > 3.55 && currentStage === 1) {
+                    currentStage = 2;
+                    setCopy(2);
+                }
+
+                const hang = Math.max(0, 1 - t / 1.7);
+                const clean = Math.min(Math.max((t - 1.35) / 2.2, 0), 1);
+                const fast = Math.min(Math.max((t - 3.45) / 1.7, 0), 1);
+
+                pc.rotation.y = Math.sin(t * 0.8) * 0.08;
+                pc.rotation.x = -0.04 + Math.sin(t * 0.55) * 0.025;
+                pc.position.x = Math.sin(t * 24) * 0.035 * hang;
+                pc.position.y = Math.cos(t * 19) * 0.025 * hang;
+
+                screen.material.emissive.setHex(fast > 0.25 ? 0x16a34a : clean > 0.2 ? 0x0891b2 : 0x991b1b);
+                screen.material.emissiveIntensity = 0.9 + clean * 0.9 + fast * 0.7;
+                cpuCore.scale.setScalar(1 + Math.sin(t * (hang ? 7 : 3)) * 0.05 + fast * 0.08);
+
+                circuitLines.forEach((line, index) => {
+                    line.material.color.setHex(fast > 0.2 ? 0x22c55e : clean > 0.25 ? 0x22d3ee : 0xef4444);
+                    line.material.opacity = 0.35 + Math.abs(Math.sin(t * 4 + index)) * 0.55;
+                });
+
+                junk.forEach((cube, index) => {
+                    const home = cube.userData.home;
+                    cube.rotation.x += 0.02 + clean * 0.06;
+                    cube.rotation.y += 0.025 + clean * 0.05;
+                    if (clean > 0) {
+                        cube.position.lerp(new THREE.Vector3(0, 0, 0.25), 0.018 + clean * 0.035);
+                        cube.scale.setScalar(Math.max(0.04, 1 - clean * 1.04));
+                        cube.material.opacity = Math.max(0, 1 - clean);
+                        cube.material.transparent = true;
+                    } else {
+                        cube.position.x = home.x + Math.sin(t * cube.userData.speed + index) * 0.08;
+                        cube.position.y = home.y + Math.cos(t * cube.userData.speed + index) * 0.06;
+                    }
+                });
+
+                cleanParticles.forEach((dot, index) => {
+                    const angle = dot.userData.angle + t * (1.8 + clean * 2.2) + index * 0.03;
+                    const radius = dot.userData.radius * (1.05 - clean * 0.32);
+                    dot.position.set(Math.cos(angle) * radius, dot.userData.height + Math.sin(t * 2 + index) * 0.24, Math.sin(angle) * radius + 0.2);
+                    dot.material.opacity = Math.min(0.95, 0.15 + clean + fast * 0.35);
+                    dot.scale.setScalar(0.5 + clean * 1.1 + fast * 0.7);
+                });
+
+                rings.forEach((ring, index) => {
+                    ring.rotation.z += 0.018 + fast * 0.05;
+                    ring.scale.setScalar(0.75 + fast * (1.1 + index * 0.18) + Math.sin(t * 3 + index) * 0.025);
+                    ring.material.opacity = fast * (0.42 - index * 0.055);
+                });
+
+                camera.position.z = 8 - fast * 0.75;
+                renderer.render(scene, camera);
+
+                if (t > 5.35) {
+                    closeLoader();
+                    return;
+                }
+                animationId = requestAnimationFrame(animate);
+            };
+
+            const handleResize = () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            };
+
+            window.addEventListener("resize", handleResize);
+            animationId = requestAnimationFrame(animate);
+            setTimeout(closeLoader, 7000);
+        }
+
+        initBootExperience();
+
         (function () {
             // ========== 1. FETCH REAL USER COUNT FROM GOOGLE APPS SCRIPT ==========
             const fetchUserCount = async () => {
@@ -287,61 +540,22 @@
             }
             fetchLatestReleaseAndUpdate();
 
-            // ========== 4. UPI MODAL LOGIC ==========
-            const SELLER_UPI_ID = "muhammedrameez2000-7@okaxis";
-            const PAYMENT_AMOUNT = "399";
-            const PAYEE_NAME = "XCoreTech Software";
-            const NOTE_TEXT = "XCoreTech Pro License ₹399 Lifetime";
-            const upiUrl = `upi://pay?pa=${encodeURIComponent(SELLER_UPI_ID)}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${PAYMENT_AMOUNT}&cu=INR&tn=${encodeURIComponent(NOTE_TEXT)}`;
-
+            // ========== 4. PRO ACCESS MODAL LOGIC ==========
             document.addEventListener("DOMContentLoaded", () => {
-                const upiSpan = document.getElementById("sellerUpiIdDisplay");
-                const deepLinkAnchor = document.getElementById("upiDeepLinkBtn");
-                const qrContainer = document.getElementById("qrcodeContainer");
-                const modal = document.getElementById("paymentModal");
+                const modal = document.getElementById("proAccessModal");
                 const closeModalBtn = document.getElementById("closeModalBtn");
-                const openModalBtns = ["openPayModalBtn", "heroPayBtn", "proPayBtn"];
-                const copyBtn = document.getElementById("copyUpiId");
-
-                if (upiSpan) upiSpan.innerText = SELLER_UPI_ID;
-                if (deepLinkAnchor) deepLinkAnchor.href = upiUrl;
-
-                let currentQR = null;
-                function generateQR() {
-                    if (!qrContainer) return;
-                    qrContainer.innerHTML = "";
-                    const size = window.innerWidth < 480 ? 140 : 180;
-                    currentQR = new QRCode(qrContainer, {
-                        text: upiUrl,
-                        width: size,
-                        height: size,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.M
-                    });
-                }
-
-                if (copyBtn) {
-                    copyBtn.addEventListener("click", () => {
-                        navigator.clipboard.writeText(SELLER_UPI_ID);
-                        const originalText = copyBtn.innerHTML;
-                        copyBtn.innerHTML = "✅ Copied!";
-                        setTimeout(() => { copyBtn.innerHTML = originalText; }, 1500);
-                    });
-                }
+                const openModalBtns = ["openProModalBtn", "heroProBtn", "proAccessBtn"];
 
                 function openModal() {
                     if (!modal) return;
                     modal.classList.remove("hidden");
                     modal.classList.add("flex");
-                    setTimeout(generateQR, 50);
                 }
 
                 function closeModal() {
                     if (!modal) return;
                     modal.classList.add("hidden");
                     modal.classList.remove("flex");
-                    if (qrContainer) qrContainer.innerHTML = "";
                 }
 
                 openModalBtns.forEach(btnId => {
@@ -350,13 +564,6 @@
                 });
                 if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
                 window.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-
-                let resizeTimer;
-                window.addEventListener("resize", () => {
-                    if (!modal || modal.classList.contains("hidden")) return;
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(() => generateQR(), 200);
-                });
             });
         })();
     </script>
