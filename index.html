@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,12 +27,6 @@
         .feature-card { transition: all 0.3s ease; }
         .feature-card:hover { transform: translateY(-6px); background: rgba(30, 38, 56, 0.9); border-color: rgba(59,130,246,0.4); }
         .step-icon { background: #0a0e17; border: 2px solid #3b82f6; }
-        .modal-bg { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
-        .dialog-enter { animation: fadeInUp 0.3s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .whatsapp-btn { background: #25D366; transition: 0.2s; }
-        .whatsapp-btn:hover { background: #128C7E; transform: translateY(-2px); }
-        .pro-badge { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px; display: inline-block; }
         .boot-loader { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 30%, #17213a 0%, #0a0e17 48%, #04070d 100%); transition: opacity 0.75s ease, visibility 0.75s ease; }
         .boot-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
         .boot-loader canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -70,11 +64,11 @@
                 <a href="#features" class="hover:text-white transition">Features</a>
                 <a href="#howitworks" class="hover:text-white transition">How It Works</a>
                 <a href="#performance" class="hover:text-white transition">Performance</a>
-                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+                <a href="#contribute" class="hover:text-white transition">Contribute</a>
             </div>
             <div class="hidden md:flex gap-3">
                 <a href="#" class="download-exe-btn px-5 py-2 rounded-lg border border-white/20 hover:bg-white/5 transition">Free Download</a>
-                <button id="openProModalBtn" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition shadow-lg"><i class="fa-solid fa-key mr-2"></i> Unlock Pro</button>
+                <a href="https://github.com/mhmdrameez/xcoretechelectron" target="_blank" rel="noopener noreferrer" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition shadow-lg"><i class="fa-brands fa-github mr-2"></i> Contribute</a>
             </div>
             <div class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></div>
         </div>
@@ -93,7 +87,7 @@
                 <p class="text-gray-400 text-lg mt-5 max-w-xl mx-auto lg:mx-0">Clean junk, speed up startup, and keep Windows running smoothly with privacy-first optimization built for everyday users, gamers, students, and professionals.</p>
                 <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
                     <a href="#" class="download-exe-btn bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2 pulse"><i class="fa-solid fa-download"></i> Download Free</a>
-                    <button id="heroProBtn" class="bg-white/5 border border-white/15 hover:bg-white/10 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2"><i class="fa-solid fa-crown"></i> Explore Pro Benefits</button>
+                    <a href="https://github.com/mhmdrameez/xcoretechelectron" target="_blank" rel="noopener noreferrer" class="bg-white/5 border border-white/15 hover:bg-white/10 px-8 py-3 rounded-xl font-semibold text-center flex items-center justify-center gap-2"><i class="fa-brands fa-github"></i> Contribute on GitHub</a>
                 </div>
                 <div class="flex flex-wrap gap-5 justify-center lg:justify-start text-sm text-gray-400 mt-8">
                     <span><i class="fa-solid fa-check text-green-500"></i> Free starter version</span>
@@ -139,8 +133,8 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-rocket"></i></div><h3 class="text-xl font-semibold">Fast PC Health Scan</h3><p class="text-gray-400 text-sm mt-2">Find hidden junk, cache buildup, and slowdown points before they affect your work.</p></div>
             <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-trash-can-arrow-up"></i></div><h3 class="text-xl font-semibold">Careful Junk Cleaning</h3><p class="text-gray-400 text-sm mt-2">Remove clutter confidently with safe cleanup rules designed for everyday Windows PCs.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-robot"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Smart Auto Clean <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Keep your PC lighter in the background without repeating the same cleanup work.</p></div>
-            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-gauge-high"></i></div><h3 class="text-xl font-semibold flex items-center gap-2">Startup Booster <span class="pro-badge">PRO</span></h3><p class="text-gray-400 text-sm mt-2">Reduce unnecessary startup load so Windows feels quicker when you turn it on.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-robot"></i></div><h3 class="text-xl font-semibold">Smart Auto Clean</h3><p class="text-gray-400 text-sm mt-2">Keep your PC lighter in the background without repeating the same cleanup work.</p></div>
+            <div class="glass-card rounded-xl p-6 feature-card border-yellow-500/20"><div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mb-4"><i class="fa-solid fa-gauge-high"></i></div><h3 class="text-xl font-semibold">Startup Booster</h3><p class="text-gray-400 text-sm mt-2">Reduce unnecessary startup load so Windows feels quicker when you turn it on.</p></div>
             <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-shield-halved"></i></div><h3 class="text-xl font-semibold">Privacy-First Design</h3><p class="text-gray-400 text-sm mt-2">Built to improve your computer without tracking your personal files or browsing habits.</p></div>
             <div class="glass-card rounded-xl p-6 feature-card"><div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl mb-4"><i class="fa-solid fa-chart-line"></i></div><h3 class="text-xl font-semibold">Clear Performance Insights</h3><p class="text-gray-400 text-sm mt-2">See what was cleaned and understand the value of each optimization.</p></div>
         </div>
@@ -166,51 +160,22 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="px-6 py-20 max-w-5xl mx-auto">
-        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl font-bold">Upgrade to <span class="gradient-text">Lifetime Pro</span></h2><p class="text-gray-400 max-w-xl mx-auto">For people who want a faster, cleaner Windows PC without complicated settings. Start free, then unlock advanced automation when you need deeper performance care.</p></div>
-        <div class="flex flex-col md:flex-row gap-8 justify-center">
-            <!-- Free Card -->
-            <div class="glass-card rounded-2xl p-8 flex-1 max-w-sm mx-auto w-full"><h3 class="text-2xl font-bold">Free Edition</h3><div class="mt-4"><span class="text-4xl font-bold">₹0</span><span class="text-gray-400"> / lifetime</span></div><p class="text-gray-400 text-sm mt-2">Basic manual cleanup</p><ul class="mt-6 space-y-3"><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Fast Parallel Scanning</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Safe Deletion Pipeline</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> System Analytics</li><li class="flex gap-2 opacity-50"><i class="fa-solid fa-xmark text-gray-500 mt-1"></i> Auto Background Cleaning</li><li class="flex gap-2 opacity-50"><i class="fa-solid fa-xmark text-gray-500 mt-1"></i> Startup Optimizer</li></ul><a href="#" class="download-exe-btn mt-8 block text-center border border-white/20 py-3 rounded-xl hover:bg-white/5 transition">Download Free</a></div>
-            <!-- Pro Card -->
-            <div class="relative glass-card rounded-2xl p-8 flex-1 max-w-sm mx-auto w-full border-blue-500/40 shadow-xl shadow-blue-500/10 transform md:scale-105 z-10"><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full">BEST VALUE</div><h3 class="text-2xl font-bold mt-2">Pro Lifetime</h3><div class="mt-4"><span class="text-5xl font-extrabold gradient-text">₹399</span><span class="text-gray-400 ml-2"> lifetime access</span></div><p class="text-green-400 text-sm mt-1"><i class="fa-solid fa-infinity"></i> Advanced cleanup, startup boost, and priority help</p><ul class="mt-6 space-y-3"><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> 1-click scheduled auto clean</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Deep clean for temp files, cache, and hidden junk</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Startup boost and boot-time optimization</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Ad-free experience with privacy-first design</li><li class="flex gap-2"><i class="fa-solid fa-check text-green-500"></i> Lifetime updates and priority support</li></ul>
-                <button id="proAccessBtn" class="mt-8 w-full text-center bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition pulse shadow-lg"><i class="fa-solid fa-crown mr-2"></i> Request Pro Access</button>
-                <p class="text-xs text-gray-400 text-center mt-4"><i class="fa-solid fa-shield-heart"></i> Built for users who value speed, privacy, and a cleaner Windows experience without monthly software clutter.</p></div>
+    <!-- Contribution Section -->
+    <section id="contribute" class="px-6 py-20 max-w-4xl mx-auto">
+        <div class="glass-card rounded-2xl p-8 md:p-12 text-center border-blue-500/30 shadow-xl shadow-blue-500/10">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-blue-500/10 flex items-center justify-center text-4xl text-blue-400"><i class="fa-brands fa-github"></i></div>
+            <h2 class="text-3xl md:text-4xl font-bold mt-6">Help Improve <span class="gradient-text">XCoreTech</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-3">XCoreTech is available publicly on GitHub. Report issues, suggest improvements, or contribute code to help build a faster, cleaner Windows experience for everyone.</p>
+            <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+                <a href="https://github.com/mhmdrameez/xcoretechelectron" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-bold transition shadow-lg"><i class="fa-brands fa-github mr-2"></i> Contribute on GitHub</a>
+                <a href="https://github.com/mhmdrameez/xcoretechelectron/issues" target="_blank" rel="noopener noreferrer" class="border border-white/20 hover:bg-white/5 px-8 py-3 rounded-xl font-bold transition"><i class="fa-solid fa-circle-exclamation mr-2"></i> Report an Issue</a>
+            </div>
+            <p class="text-xs text-gray-500 mt-5">Community contributions, bug reports, and feature ideas are welcome.</p>
         </div>
     </section>
 
     <!-- Download CTA Section -->
     <section id="download" class="px-6 py-20 max-w-4xl mx-auto text-center"><div class="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-3xl p-10 border border-white/10"><h2 class="text-3xl md:text-4xl font-bold">Experience a Faster, Cleaner PC.</h2><p class="text-gray-300 mt-3">Join <span id="cta-user-count">--</span> users who already optimized with XCoreTech.</p><div class="mt-8"><a href="#" class="download-exe-btn bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl inline-flex items-center gap-3 text-lg font-bold"><i class="fa-brands fa-windows text-2xl"></i> Download for Windows (Free)</a></div><p class="text-gray-500 text-sm mt-6" id="app-version-info">Fetching latest release...</p></div></section>
-
-    <!-- ========== FIXED RESPONSIVE MODAL (CENTERED, SCROLLABLE) ========== -->
-    <div id="proAccessModal" class="fixed inset-0 z-50 hidden modal-bg items-center justify-center p-4 overflow-y-auto">
-        <div class="w-full max-w-md mx-auto bg-[#0f141f] rounded-2xl border border-gray-700 shadow-2xl dialog-enter my-auto">
-            <div class="flex justify-between items-center p-4 border-b border-gray-700">
-                <h3 class="text-lg sm:text-xl font-bold gradient-text">XCoreTech Pro Access</h3>
-                <button id="closeModalBtn" class="text-gray-400 text-2xl hover:text-white transition">&times;</button>
-            </div>
-            <div class="p-4 space-y-4 text-sm sm:text-base">
-                <div class="text-center text-green-400 font-semibold">Upgrade when you are ready for deeper cleanup, automation, and priority help.</div>
-                <div class="bg-[#111827] p-4 rounded-xl border border-blue-500/20 space-y-3">
-                    <div class="font-semibold">What Pro adds</div>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Scheduled auto cleaning for less manual work</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Startup optimization for faster daily use</li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Priority support for setup and activation</li>
-                    </ul>
-                </div>
-                <a href="mailto:xcoretech@yahoo.com?subject=XCoreTech%20Pro%20Access" class="w-full bg-blue-600 hover:bg-blue-700 text-center py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition"><i class="fa-solid fa-envelope"></i> Contact Support</a>
-                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/20 text-center text-sm">
-                    <div class="font-semibold mb-2">Need help choosing or activating Pro?</div>
-                    <div class="flex flex-col gap-2">
-                        <a href="mailto:xcoretech@yahoo.com" class="bg-gray-800 py-2 rounded-lg hover:bg-gray-700 transition">Email: xcoretech@yahoo.com</a>
-                        <a href="https://wa.me/919446960834" target="_blank" class="whatsapp-btn py-2 rounded-lg text-white font-semibold flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp"></i> WhatsApp Business: +91 9446960834</a>
-                    </div>
-                    <div class="text-xs text-gray-400 mt-3">Share your email and device details so support can guide you quickly.</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <footer class="border-t border-white/10 py-12 px-6 text-center text-gray-500 text-sm"><div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4"><div>© 2026 XCoreTech PC Optimizer</div><div class="flex gap-6"><a href="#" class="hover:text-white">Privacy</a><a href="#" class="hover:text-white">Terms</a><a href="mailto:xcoretech@yahoo.com" class="hover:text-white">Support</a></div></div></footer>
 
@@ -540,31 +505,6 @@
             }
             fetchLatestReleaseAndUpdate();
 
-            // ========== 4. PRO ACCESS MODAL LOGIC ==========
-            document.addEventListener("DOMContentLoaded", () => {
-                const modal = document.getElementById("proAccessModal");
-                const closeModalBtn = document.getElementById("closeModalBtn");
-                const openModalBtns = ["openProModalBtn", "heroProBtn", "proAccessBtn"];
-
-                function openModal() {
-                    if (!modal) return;
-                    modal.classList.remove("hidden");
-                    modal.classList.add("flex");
-                }
-
-                function closeModal() {
-                    if (!modal) return;
-                    modal.classList.add("hidden");
-                    modal.classList.remove("flex");
-                }
-
-                openModalBtns.forEach(btnId => {
-                    const btn = document.getElementById(btnId);
-                    if (btn) btn.addEventListener("click", openModal);
-                });
-                if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
-                window.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-            });
         })();
     </script>
 </body>
