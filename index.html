@@ -2,19 +2,134 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>XCoreTech PC Optimizer: a careful, free cleaner for Windows, macOS and Linux</title>
-<meta name="description" content="XCoreTech is a free cleaner for Windows, macOS and Linux. It clears temp files and browser caches, lists every file before it deletes anything, finds large files and tidies developer caches.">
-<meta name="keywords" content="PC optimizer, Windows cleaner, Mac cleaner, Linux cleaner, temp file cleaner, startup manager, large file finder, developer cache cleaner, free PC cleaner, XCoreTech">
-<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+
+<!-- Search -->
+<title>XCoreTech: Free Open-Source Cleaner for Windows, Mac &amp; Linux</title>
+<meta name="description" content="Free, open-source cleaner for Windows, macOS and Linux. Clears temp files and browser caches, finds large files, and shows every file before deleting it.">
+<meta name="keywords" content="XCoreTech, PC optimizer, PC cleaner, free PC cleaner, open source PC cleaner, Windows cleaner, Mac cleaner, Linux cleaner, junk file cleaner, temp file cleaner, browser cache cleaner, large file finder, startup manager, npm cache cleaner, developer cache cleaner, CCleaner alternative">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="XCoreTech Team">
+<link rel="canonical" href="https://xcoretech.vercel.app/">
+<link rel="alternate" type="text/plain" href="https://xcoretech.vercel.app/llms.txt" title="XCoreTech summary for AI assistants">
+
+<!-- Link previews: Facebook, WhatsApp, LinkedIn, Telegram, Discord, Slack -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XCoreTech PC Optimizer">
+<meta property="og:url" content="https://xcoretech.vercel.app/">
+<meta property="og:title" content="XCoreTech PC Optimizer: free, open-source cleaner for Windows, macOS and Linux">
+<meta property="og:description" content="Clears temp files and browser caches, finds large files and tidies developer caches. Shows every file before it deletes anything. Free and open source (GPL-3.0).">
+<meta property="og:image" content="https://xcoretech.vercel.app/assets/og-image.png">
+<meta property="og:image:secure_url" content="https://xcoretech.vercel.app/assets/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="XCoreTech PC Optimizer app icon, a broom with sparkles, next to the text: free, open-source cleaner for Windows, macOS and Linux">
+<meta property="og:locale" content="en_US">
+
+<!-- X (Twitter) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="XCoreTech PC Optimizer: free, open-source PC cleaner">
+<meta name="twitter:description" content="Clean junk files, find large files and tidy developer caches on Windows, macOS and Linux. Shows every file before deleting.">
+<meta name="twitter:image" content="https://xcoretech.vercel.app/assets/og-image.png">
+<meta name="twitter:image:alt" content="XCoreTech PC Optimizer app icon with the text: free, open-source cleaner for Windows, macOS and Linux">
+
+<!-- Devices: icons, home screen, theme -->
+<link rel="icon" href="/assets/app-icon.ico" sizes="any">
+<link rel="icon" href="/assets/app-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="application-name" content="XCoreTech">
+<meta name="apple-mobile-web-app-title" content="XCoreTech">
+<meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="XCoreTech PC Optimizer">
-<meta property="og:description" content="A free cleaner for Windows, macOS and Linux that shows you every file before it removes it.">
-<meta property="og:type" content="website">
-<link rel="icon" href="assets/app-icon.ico" sizes="any">
-<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/app-icon.png">
+<meta name="msapplication-TileColor" content="#2350B8">
+
+<!-- Structured data for Google rich results and AI assistants -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://xcoretech.vercel.app/#org",
+      "name": "XCoreTech",
+      "url": "https://xcoretech.vercel.app/",
+      "logo": "https://xcoretech.vercel.app/assets/icon-512.png",
+      "email": "xcoretech@yahoo.com",
+      "sameAs": ["https://github.com/mhmdrameez/xcoretechelectron", "https://github.com/mhmdrameez"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://xcoretech.vercel.app/#website",
+      "url": "https://xcoretech.vercel.app/",
+      "name": "XCoreTech PC Optimizer",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://xcoretech.vercel.app/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://xcoretech.vercel.app/#app",
+      "name": "XCoreTech PC Optimizer",
+      "alternateName": "XCoreTech",
+      "description": "Free, open-source desktop cleaner for Windows, macOS and Linux. It clears temp files and browser caches, finds large files, cleans developer caches (npm, pnpm, pip, uv, conda, Playwright), manages apps that start at sign-in, and lists every file before it deletes anything.",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "System cleaner",
+      "operatingSystem": "Windows 10, Windows 11, macOS, Linux",
+      "softwareVersion": "1.3.33",
+      "url": "https://xcoretech.vercel.app/",
+      "downloadUrl": "https://github.com/mhmdrameez/xcoretechelectron/releases/latest",
+      "installUrl": "https://xcoretech.vercel.app/#download",
+      "image": "https://xcoretech.vercel.app/assets/og-image.png",
+      "screenshot": "https://xcoretech.vercel.app/assets/og-image.png",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+      "featureList": [
+        "Junk file cleanup: temp folders, Prefetch, Chrome, Edge and Brave caches",
+        "Lists every file and asks before deleting",
+        "Large file finder with Recycle Bin / Trash or permanent delete",
+        "Developer cache cleaner for npm, pnpm, pip, uv, conda, old temp files and unused Playwright browsers",
+        "Turn apps that start at sign-in on or off",
+        "Automatic clean when you sign in",
+        "Internet fix (DNS flush; Winsock and IP reset on Windows)",
+        "One-line install on macOS and Linux"
+      ],
+      "author": { "@id": "https://xcoretech.vercel.app/#org" },
+      "publisher": { "@id": "https://xcoretech.vercel.app/#org" }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://xcoretech.vercel.app/#source",
+      "name": "xcoretechelectron",
+      "codeRepository": "https://github.com/mhmdrameez/xcoretechelectron",
+      "programmingLanguage": "JavaScript",
+      "runtimePlatform": "Electron",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "targetProduct": { "@id": "https://xcoretech.vercel.app/#app" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://xcoretech.vercel.app/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is XCoreTech really free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. It's free and open source under the GPL-3.0 license: no activation, no trial timer, no payment screen." } },
+        { "@type": "Question", "name": "Is XCoreTech open source?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The full source code is on GitHub at github.com/mhmdrameez/xcoretechelectron under the GNU GPL-3.0 license. Anyone can read it, report bugs, suggest features and send pull requests." } },
+        { "@type": "Question", "name": "Which systems does XCoreTech run on?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Windows 10 and 11 (32- and 64-bit), macOS on Apple Silicon and Intel, and 64-bit Linux as an AppImage, .deb or .rpm. On macOS and Linux it installs with one command: curl -fsSL https://raw.githubusercontent.com/mhmdrameez/xcoretechelectron/main/install.sh | bash" } },
+        { "@type": "Question", "name": "Can XCoreTech delete something I need?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It only looks in a handful of temp and cache folders, and system folders are blocked in the code. It asks before deleting anything. The worst you'll notice is a browser loading some sites a little slower the first time while its cache fills up again." } },
+        { "@type": "Question", "name": "Does XCoreTech send any of my data anywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Your files, file names and browsing history never leave your computer. When the app opens, scans and cleans, it sends a small usage log: your computer's name, system version, processor, total and free memory, your approximate location (city and country, from your IP address), how much was cleaned, and error details if something crashes. It doesn't ask for your name, email or phone number." } }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -434,6 +549,13 @@
   .dl-pending { margin-top: 18px; font-size: 15px; color: var(--muted); }
   .os-line { margin-top: 18px; font-size: 15px; color: var(--muted); max-width: 70ch; }
   .os-line b { color: var(--ink); font-weight: 600; }
+  .cmd-plain pre::before { content: none; }
+  .help-list { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; max-width: 58ch; }
+  .help-list li { color: var(--muted); font-size: 16.5px; padding-left: 22px; position: relative; }
+  .help-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  .help-list b { color: var(--ink); font-weight: 600; }
+  .help-run { margin-top: 26px; font: 500 13px/1 var(--mono); color: var(--faint); }
+  .oss .cmd { max-width: 58ch; }
   .os-line code, .faq code { background: color-mix(in srgb, var(--ink) 7%, transparent); padding: 1px 5px; border-radius: 4px; }
 
   /* Final CTA */
@@ -491,7 +613,7 @@
     <nav class="nav" id="site-nav" aria-label="Main">
       <a href="#cleans">What it cleans</a>
       <a href="#features">Features</a>
-      <a href="#source">Source code</a>
+      <a href="#contribute">Contribute</a>
       <a href="#faq">FAQ</a>
     </nav>
     <a href="#download" class="btn btn-primary btn-sm head-cta">Download</a>
@@ -502,7 +624,7 @@
   <div class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow"><span>Free, full version</span><span>Windows</span><span>macOS</span><span>Linux</span></p>
+        <p class="eyebrow"><span>Free &amp; open source</span><span>Windows</span><span>macOS</span><span>Linux</span></p>
         <h1>Your PC isn't old. <em>It's just carrying too much.</em></h1>
         <p class="lede">XCoreTech clears out the temp files and browser caches your computer leaves lying around. It shows you every file it found, and asks before it deletes a single one.</p>
         <div class="actions">
@@ -715,17 +837,26 @@
     </div>
   </section>
 
-  <section id="source">
+  <section id="contribute">
     <div class="wrap oss">
       <div>
-        <p class="kicker">Source code</p>
-        <h2 class="sec-title">Don't take our word for it. Read the code.</h2>
-        <p class="sec-intro">The full source is on GitHub. It isn't under an open-source license, but anyone can read exactly what it does before running it. If you're the careful type (and you should be, with anything that deletes files), start with <code>platform.js</code> for the folders it cleans and <code>cleaner.js</code> for how it deletes.</p>
-        <p class="sec-intro">Found a bug, or have an idea? Open an issue.</p>
+        <p class="kicker">Open source</p>
+        <h2 class="sec-title">Free and open source. Come build it with us.</h2>
+        <p class="sec-intro">XCoreTech is open source under the GNU GPL-3.0 license. Every line is on GitHub, so you can read exactly what it does before you run it. With anything that deletes files, you should. Start with <code>platform.js</code> for the folders it cleans and <code>cleaner.js</code> for how it deletes.</p>
+        <ul class="help-list">
+          <li><b>Found a bug?</b> <a href="https://github.com/mhmdrameez/xcoretechelectron/issues/new" target="_blank" rel="noopener">Open an issue</a> with your system and what happened.</li>
+          <li><b>Have an idea?</b> More browsers to clean, more developer caches, translations. Suggest it in an issue.</li>
+          <li><b>Want to code?</b> Pull requests are welcome. Testing on a Linux distro or Mac we haven't tried helps a lot too.</li>
+        </ul>
+        <p class="help-run">Run it from source:</p>
+        <div class="cmd cmd-plain"><pre>git clone https://github.com/mhmdrameez/xcoretechelectron.git
+cd xcoretechelectron
+npm install
+npm start</pre><button type="button" class="js-copy">Copy</button></div>
       </div>
       <div class="repo">
         <div class="repo-path"><svg><use href="#i-gh"/></svg>mhmdrameez/xcoretechelectron</div>
-        <p>Electron app for Windows. Releases and issues live here.</p>
+        <p>Electron app for Windows, macOS and Linux. GPL-3.0. Code, releases and issues live here.</p>
         <p class="repo-stats" id="repo-stats" hidden></p>
         <div class="repo-block" id="releases-block" hidden>
           <h3>Recent releases</h3>
@@ -736,8 +867,9 @@
           <div class="people" id="people"></div>
         </div>
         <div class="actions">
-          <a href="https://github.com/mhmdrameez/xcoretechelectron" class="btn btn-quiet btn-sm" target="_blank" rel="noopener">Browse the repo</a>
+          <a href="https://github.com/mhmdrameez/xcoretechelectron" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Contribute on GitHub</a>
           <a href="https://github.com/mhmdrameez/xcoretechelectron/issues" class="btn btn-quiet btn-sm" target="_blank" rel="noopener">Report an issue</a>
+          <a href="https://github.com/mhmdrameez/xcoretechelectron/stargazers" class="btn btn-quiet btn-sm" target="_blank" rel="noopener">★ Star</a>
         </div>
       </div>
     </div>
@@ -750,7 +882,7 @@
         <img src="https://github.com/mhmdrameez.png?size=144" alt="" width="72" height="72" loading="lazy">
         <div class="letter-body">
           <p>I built XCoreTech while working as a hardware engineer. A lot of the systems I saw weren't broken. They were slow because they had never been cleaned properly: temp folders full, caches piling up, too many apps starting with Windows.</p>
-          <p>I kept doing the same cleanup by hand, machine after machine, so I turned it into a tool anyone can use. It's free, the code is public, and I still work on it in my own time.</p>
+          <p>I kept doing the same cleanup by hand, machine after machine, so I turned it into a tool anyone can use. It's free and open source, and I still work on it in my own time. If you'd like to help, you're very welcome.</p>
           <p>If something breaks or doesn't make sense, <a href="https://github.com/mhmdrameez/xcoretechelectron/issues" target="_blank" rel="noopener">open an issue</a>. I read every one.</p>
           <span class="hand">Thanks for trying it.</span>
           <small><a href="https://github.com/mhmdrameez" target="_blank" rel="noopener">@mhmdrameez</a> · maker of XCoreTech</small>
@@ -831,7 +963,15 @@
       <div class="faq">
         <details>
           <summary>Is it really free?</summary>
-          <p>Yes. It's the full version: no activation, no trial timer, no payment screen.</p>
+          <p>Yes. It's free and open source under the GPL-3.0 license: no activation, no trial timer, no payment screen.</p>
+        </details>
+        <details>
+          <summary>Is it open source? Can I contribute?</summary>
+          <p>Yes. The full source code is on <a href="https://github.com/mhmdrameez/xcoretechelectron" target="_blank" rel="noopener">GitHub</a> under the GNU GPL-3.0 license. Anyone can read it, report bugs, suggest features and send pull requests.</p>
+        </details>
+        <details>
+          <summary>Which systems does it run on?</summary>
+          <p>Windows 10 and 11 (32- and 64-bit), macOS on Apple Silicon and Intel, and 64-bit Linux as an AppImage, .deb or .rpm. On macOS and Linux it installs with one command; see <a href="#download">Download</a>.</p>
         </details>
         <details>
           <summary>Can it delete something I need?</summary>
@@ -871,7 +1011,7 @@
 
 <footer class="site-foot">
   <div class="wrap">
-    <span>© 2026 XCoreTech · made by <a href="https://github.com/mhmdrameez" target="_blank" rel="noopener">@mhmdrameez</a></span>
+    <span>© 2026 XCoreTech · made by <a href="https://github.com/mhmdrameez" target="_blank" rel="noopener">@mhmdrameez</a> · open source under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener license">GPL-3.0</a></span>
     <nav aria-label="Footer">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
