@@ -240,6 +240,24 @@
   .sec-intro { margin-top: 16px; color: var(--muted); max-width: 58ch; font-size: 18px; }
   @media (max-width: 640px) { section { padding: 72px 0; } }
 
+  /* Live usage numbers */
+  .live { padding: 56px 0 64px; }
+  .live .kicker { display: flex; align-items: center; gap: 10px; }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); animation: live-pulse 2s infinite; }
+  @keyframes live-pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+  .live-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; align-items: start; margin-top: 8px; }
+  .live-grid span { max-width: 26ch; }
+  .live-num { display: block; font: 600 clamp(2.5rem, 5.4vw, 3.8rem)/1 var(--sans); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .live-grid span { display: block; margin-top: 10px; color: var(--muted); }
+  .live-note { justify-self: end; align-self: end; text-align: right; }
+  .live-note .hand { transform: rotate(-2deg); }
+  .live-note small { display: block; margin-top: 8px; font: 400 12.5px/1.5 var(--mono); color: var(--faint); }
+  @media (max-width: 760px) {
+    .live-grid { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    .live-note { grid-column: 1 / -1; justify-self: start; text-align: left; }
+  }
+
   /* Cleans vs leaves alone */
   .ledger { display: grid; grid-template-columns: 1fr 1fr; margin-top: 48px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
   .ledger > div { padding: 28px 32px 32px; }
@@ -413,6 +431,20 @@
     </div>
   </div>
 
+  <section class="live" id="live" aria-label="XCoreTech usage, live" hidden>
+    <div class="wrap">
+      <p class="kicker"><span class="live-dot" aria-hidden="true"></span>Live numbers</p>
+      <div class="live-grid">
+        <div><b class="live-num" id="live-devices">0</b><span>PCs have run XCoreTech</span></div>
+        <div><b class="live-num" id="live-junk">0 MB</b><span id="live-cleanups">of junk cleaned so far</span></div>
+        <div class="live-note">
+          <p class="hand">Real PCs, real numbers.</p>
+          <small id="live-updated"></small>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="cleans">
     <div class="wrap">
       <p class="kicker">What it cleans</p>
@@ -478,7 +510,7 @@
       <div class="extras">
         <div><h3>Auto Clean</h3><p>Pick a schedule and it quietly tidies up in the background, using the same rules you set.</p></div>
         <div><h3>History</h3><p>Every clean is logged with what was removed and how much space came back.</p></div>
-        <div><h3>No tracking</h3><p>It doesn't read your files or watch what you browse. It only looks where junk lives.</p></div>
+        <div><h3>Your files stay yours</h3><p>It never reads, copies or uploads your documents, photos or browsing history. It only looks where junk lives.</p></div>
       </div>
     </div>
   </section>
@@ -546,7 +578,7 @@
         </details>
         <details>
           <summary>Does it send any of my data anywhere?</summary>
-          <p>No personal files, browsing history or file names are collected. The app may check GitHub for updates, and that's it.</p>
+          <p>Your files, file names and browsing history never leave your PC. The app does send a small usage log to our server: your PC's device name, Windows version, CPU, RAM, free disk space, approximate location, how much junk was cleaned, and error details if something goes wrong. If you type in your name and phone number, those are sent too. That log is how the live numbers on this page are counted, and it helps me fix bugs.</p>
         </details>
         <details>
           <summary>How do I uninstall it?</summary>
@@ -583,7 +615,9 @@
 <script>
 (() => {
   const REPO = "mhmdrameez/xcoretechelectron";
-  const USERS_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQFkK4UqF5Vaq_YwJ4C9COr_9PRmy6OTqseIZ4lgoMYSEfkLeaWmxJY4vxYvroamXIkSJDzXWksRCm_0yVxVXzFnnlfr953G-rYI4UQm8OPN6Vj0j8E51-Y3dXlTBRl_J9yZ5Mi9RNUq0UICfSV_NxYpSJ0yhkMZgd_BVyAbx6Fi-jn73nrrg-jnncOa8GQe6AutZrkr2Ln1dL8jxZA1VtoN-HxqKo2fch9olyE5--n4hd78S-2EdcnDZHBwa5KUiptKOSegYTFdYXRUIYgO89dtl-rPblzUGJpy3YN&lib=MVOA5Ksc9sVTGSWB0H5dkoVDLLuzzHBvJ";
+  // Your Apps Script web app URL (Deploy → Manage deployments → Web app URL, ends in /exec).
+  // It must answer ?type=count and ?type=total_junk.
+  const STATS_URL = "https://script.google.com/macros/s/AKfycbxYcV6P2BKqhHiuOs7985cmZPVLMmUlmQSPculfNDUqYOuCigBOXCEyzhPxMasK6b7s/exec";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Header: border on scroll, mobile menu
@@ -677,17 +711,6 @@
     })
     .catch(() => {});
 
-  // Install count: only shown when we have a real number.
-  fetch(USERS_URL)
-    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-    .then((data) => {
-      const total = Number(data && data.total);
-      if (!total) return;
-      const el = document.getElementById("user-count");
-      el.querySelector("b").textContent = total.toLocaleString();
-      el.hidden = false;
-    })
-    .catch(() => {});
 
   // ---------- Demo cleaner: tick, untick, clean, scan again ----------
   // Pure theatre: nothing on the visitor's computer is read or touched.
@@ -845,6 +868,58 @@
       : off ? `${off} of ${startupRows.length} switched off · takes effect next restart` : "Everything starts with Windows";
   };
   startupRows.forEach((row) => row.addEventListener("click", () => toggleRow(row)));
+
+  // ---------- Live usage numbers from the XCoreTech log ----------
+  // Shown only when real numbers come back; nothing is ever made up.
+  const liveSection = document.getElementById("live");
+  const liveDevices = document.getElementById("live-devices");
+  const liveJunk = document.getElementById("live-junk");
+  const liveUpdated = document.getElementById("live-updated");
+  const liveCleanups = document.getElementById("live-cleanups");
+  const heroUsers = document.getElementById("user-count");
+  const fmtJunk = (mb) => {
+    if (mb < 1024) return `${Math.round(mb)} MB`;
+    const gb = mb / 1024;
+    if (gb < 1024) return `${gb.toFixed(gb < 100 ? 1 : 0)} GB`;
+    return `${(gb / 1024).toFixed(2)} TB`;
+  };
+  const shown = { devices: 0, mb: 0 };
+
+  async function loadStats() {
+    if (STATS_URL.includes("PASTE_YOUR")) return;
+    // One call to ?type=stats; older script versions only know count / total_junk.
+    let stats = await getJSON(`${STATS_URL}?type=stats`).catch(() => null);
+    if (!stats || stats.total == null) {
+      const [count, junk] = await Promise.all([
+        getJSON(`${STATS_URL}?type=count`).catch(() => null),
+        getJSON(`${STATS_URL}?type=total_junk`).catch(() => null),
+      ]);
+      stats = { total: count && count.total, totalMB: junk && junk.totalMB };
+    }
+    const devices = Number(stats.total) || 0;
+    const mb = parseFloat(stats.totalMB) || 0;
+    const cleanups = Number(stats.cleanups) || 0;
+    if (!devices && !mb) return;
+    if (cleanups) liveCleanups.textContent = `of junk cleaned so far, across ${cleanups.toLocaleString()} cleanups`;
+
+    liveSection.hidden = false;
+    if (devices) {
+      heroUsers.hidden = false;
+      heroUsers.querySelector("b").textContent = devices.toLocaleString();
+    }
+    const from = { ...shown };
+    await tween(from.devices ? 800 : 1400, (p) => {
+      liveDevices.textContent = Math.round(from.devices + (devices - from.devices) * p).toLocaleString();
+      liveJunk.textContent = fmtJunk(from.mb + (mb - from.mb) * p);
+    });
+    shown.devices = devices;
+    shown.mb = mb;
+    liveUpdated.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} · refreshes every minute`;
+  }
+
+  loadStats();
+  setInterval(() => { if (document.visibilityState === "visible") loadStats(); }, 60000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") loadStats(); });
 })();
 </script>
 </body>
