@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>XCoreTech PC Optimizer: a careful, free Windows cleaner</title>
-<meta name="description" content="XCoreTech is a free, open-source Windows cleaner. It clears temp files, stale caches and startup clutter, and shows you what it will remove before it touches anything.">
-<meta name="keywords" content="PC optimizer, Windows cleaner, startup manager, junk file cleaner, free PC cleaner, open source, XCoreTech">
+<title>XCoreTech PC Optimizer: a careful, free cleaner for Windows, macOS and Linux</title>
+<meta name="description" content="XCoreTech is a free cleaner for Windows, macOS and Linux. It clears temp files and browser caches, lists every file before it deletes anything, finds large files and tidies developer caches.">
+<meta name="keywords" content="PC optimizer, Windows cleaner, Mac cleaner, Linux cleaner, temp file cleaner, startup manager, large file finder, developer cache cleaner, free PC cleaner, XCoreTech">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="XCoreTech PC Optimizer">
-<meta property="og:description" content="A free, open-source Windows cleaner that shows you what it removes before it removes it.">
+<meta property="og:description" content="A free cleaner for Windows, macOS and Linux that shows you every file before it removes it.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,12 +27,6 @@
     --accent-hover: #166640;
     --accent-ink: #ffffff;
     --accent-soft: #e2efe6;
-    --win-bg: #1b1e24;
-    --win-raise: #23272e;
-    --win-line: #30353d;
-    --win-ink: #e9e7e2;
-    --win-muted: #8f95a0;
-    --win-accent: #46b97c;
     --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
     --max: 1120px;
@@ -72,6 +66,7 @@
   .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--bg); padding: 8px 12px; border-radius: 6px; z-index: 99; }
   .skip:focus { left: 8px; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* Buttons */
   .btn {
@@ -124,85 +119,171 @@
   }
 
   /* Hero */
-  .hero { padding: 72px 0 96px; }
-  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .hero { padding: 64px 0 88px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
   .eyebrow { font: 500 13px/1 var(--mono); color: var(--muted); letter-spacing: 0.02em; margin-bottom: 22px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
   .eyebrow span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: 2px; }
-  .hero h1 { font-size: clamp(2.4rem, 5.2vw, 3.9rem); max-width: 14ch; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); max-width: 14ch; }
   .hero h1 em { font-style: normal; color: var(--muted); }
-  .lede { margin-top: 22px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+  .lede { margin-top: 22px; font-size: 19px; color: var(--muted); max-width: 44ch; }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
   .release-meta { margin-top: 16px; font: 400 13px/1.5 var(--mono); color: var(--faint); }
   .users { margin-top: 6px; font-size: 14px; color: var(--muted); }
   .users b { color: var(--ink); font-weight: 600; }
-
-  /* App window mock */
-  .shot { position: relative; }
-  .app {
-    background: var(--win-bg); color: var(--win-ink);
-    border-radius: 12px; overflow: hidden;
-    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 30px 60px -20px rgba(20,24,30,.45), 0 0 0 1px rgba(0,0,0,.08);
-    font-size: 14px;
+  @media (max-width: 960px) {
+    .hero { padding: 40px 0 72px; }
+    .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   }
-  @media (prefers-color-scheme: dark) { .app { box-shadow: 0 0 0 1px var(--win-line), 0 30px 60px -20px rgba(0,0,0,.6); } }
-  .app-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--win-line); }
-  .app-title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; }
-  .app-title svg { width: 16px; height: 16px; }
-  .app-ctl { display: flex; gap: 14px; color: var(--win-muted); }
-  .app-ctl svg { width: 11px; height: 11px; }
-  .app-tabs { display: flex; gap: 22px; padding: 0 16px; border-bottom: 1px solid var(--win-line); font-size: 13px; color: var(--win-muted); }
-  .app-tabs span { padding: 11px 0 10px; border-bottom: 2px solid transparent; }
-  .app-tabs .on { color: var(--win-ink); border-bottom-color: var(--win-accent); }
-  .app-status { position: relative; display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; font: 400 12px/1 var(--mono); color: var(--win-muted); }
-  .app-status span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .app-status span:last-child { flex: none; }
-  #app-progress { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--win-accent); transform-origin: left; transform: scaleX(var(--p, 0)); opacity: 0; transition: opacity .3s; }
-  .app.busy #app-progress { opacity: 1; }
 
-  .app-list { list-style: none; margin: 0; padding: 0 8px; }
-  .app-list li { position: relative; border-radius: 6px; }
-  .app-list li + li { border-top: 1px solid var(--win-line); }
-  .app-list li::before { content: ""; position: absolute; inset: 3px 0; border-radius: 6px; background: color-mix(in srgb, var(--win-accent) 16%, transparent); transform-origin: left; transform: scaleX(var(--p, 0)); pointer-events: none; }
-  .app-list label { position: relative; display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 8px; border-radius: 6px; cursor: pointer; transition: background-color .15s; }
-  .app-list label:hover { background: rgba(255,255,255,.035); }
-  .app.busy .app-list label, .app-list input:disabled ~ * { cursor: default; }
-  .app.busy .app-list label:hover, .app.cleaned .app-list label:hover { background: none; }
-  .app-list input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
-  .app-list .txt { display: block; min-width: 0; }
-  .app-list b { display: block; font-weight: 500; font-size: 14px; transition: color .2s; }
-  .app-list code { display: block; color: var(--win-muted); font-size: 11.5px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .app-list .sz { font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; transition: color .2s; }
-  .app-list input:not(:checked) ~ .txt b, .app-list input:not(:checked) ~ .sz { color: var(--win-muted); }
-  .app-list .done b { color: var(--win-muted); text-decoration: line-through; text-decoration-color: var(--win-line); }
-  .app-list .done .sz { color: var(--win-accent); }
-  .cb { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--win-muted); display: grid; place-items: center; transition: background-color .15s, border-color .15s; }
-  .app-list input:checked + .cb { background: var(--win-accent); border-color: var(--win-accent); }
-  .app-list input:checked + .cb::after { content: ""; width: 8px; height: 4px; border: 2px solid #0c1a12; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
-  .app-list input:focus-visible + .cb { outline: 2px solid var(--win-accent); outline-offset: 3px; }
-  .app-list .done input + .cb { background: transparent; border-color: var(--win-line); }
-  .app-list .done input + .cb::after { border-color: var(--win-accent); }
-
-  .app-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; padding: 14px 16px; border-top: 1px solid var(--win-line); background: var(--win-raise); }
-  .app-foot span { color: var(--win-muted); font-size: 13px; }
-  .app-foot b { color: var(--win-ink); font: 600 15px/1 var(--mono); font-variant-numeric: tabular-nums; transition: color .3s; }
-  .app-foot.freed b { color: var(--win-accent); }
-  .app-clean { appearance: none; border: 0; min-width: 132px; padding: 9px 14px; border-radius: 6px; background: var(--win-accent); color: #0c1a12; font: 600 13px/1 var(--sans); font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color .15s, opacity .15s; }
-  .app-clean:hover { background: #5bc98d; }
-  .app-clean:active { transform: translateY(1px); }
-  .app-clean:focus-visible { outline: 2px solid var(--win-ink); outline-offset: 2px; }
-  .app-clean:disabled { opacity: .4; cursor: not-allowed; }
-  .app.busy .app-clean:disabled { opacity: 1; cursor: progress; background: transparent; color: var(--win-ink); box-shadow: inset 0 0 0 1px var(--win-line); }
-  .app-clean.again { background: transparent; color: var(--win-ink); box-shadow: inset 0 0 0 1px var(--win-line); }
-  .app-clean.again:hover { background: rgba(255,255,255,.06); }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* Handwritten margin notes */
+  .hand { font: 600 23px/1.15 "Caveat", "Segoe Print", cursive; color: var(--accent); letter-spacing: 0; }
   .try-note { display: flex; align-items: flex-end; justify-content: flex-end; gap: 4px; margin: 0 24px 6px 0; }
   .try-note p { transform: rotate(-3deg); }
   .try-note svg { width: 34px; height: 30px; color: var(--accent); }
-  /* Handwritten margin notes */
-  .hand { font: 600 23px/1.15 "Caveat", "Segoe Print", cursive; color: var(--accent); letter-spacing: 0; }
   .shot-note { display: flex; align-items: flex-start; justify-content: flex-end; gap: 6px; margin: 10px 8px 0 0; }
   .shot-note svg { width: 54px; height: 44px; flex: none; color: var(--accent); }
-  .shot-note p { transform: rotate(-2deg); max-width: 22ch; text-align: right; padding-top: 18px; }
+  .shot-note p { transform: rotate(-2deg); max-width: 24ch; text-align: right; padding-top: 18px; }
+
+  /* ---------- Replica of the real app window (same palette as the app's styles.css) ---------- */
+  .xa {
+    --xa-bg: #f3f3f3; --xa-card: #ffffff; --xa-alt: #f9f9f9; --xa-text: #1b1b1b; --xa-muted: #616161;
+    --xa-line: #e5e5e5; --xa-line2: #d1d1d1; --xa-accent: #005fb8; --xa-accent-h: #0a6cc4; --xa-accent-t: #ffffff;
+    --xa-ok: #0f7b0f; --xa-warn: #9d5d00; --xa-btn: #fbfbfb; --xa-btn-h: #f0f0f0;
+    position: relative;
+    font: 14px/1.45 "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    color: var(--xa-text); background: var(--xa-bg);
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 30px 60px -24px rgba(20,24,30,.38);
+    text-align: left;
+  }
+  @media (prefers-color-scheme: dark) {
+    .xa {
+      --xa-bg: #202020; --xa-card: #2b2b2b; --xa-alt: #272727; --xa-text: #f3f3f3; --xa-muted: #b4b4b4;
+      --xa-line: #3a3a3a; --xa-line2: #4a4a4a; --xa-accent: #4cc2ff; --xa-accent-h: #63cbff; --xa-accent-t: #000000;
+      --xa-ok: #6ccb5f; --xa-warn: #fce100; --xa-btn: #373737; --xa-btn-h: #3d3d3d;
+      box-shadow: 0 0 0 1px #3a3a3a, 0 30px 60px -24px rgba(0,0,0,.7);
+    }
+  }
+  .xa-titlebar { display: flex; align-items: center; justify-content: space-between; height: 34px; padding: 0 0 0 12px; font-size: 12px; color: var(--xa-muted); }
+  .xa-titlebar span { display: flex; align-items: center; gap: 8px; }
+  .xa-titlebar svg { width: 14px; height: 14px; }
+  .xa-ctl { display: flex; }
+  .xa-ctl i { width: 44px; height: 34px; display: grid; place-items: center; font-style: normal; }
+  .xa-ctl svg { width: 10px; height: 10px; }
+  .xa-body { display: flex; flex-direction: column; gap: 10px; padding: 4px 16px 16px; }
+  .xa-head { display: flex; align-items: center; gap: 10px; }
+  .xa-logo { width: 24px; height: 24px; color: var(--xa-accent); }
+  .xa-name { font-size: 14px; font-weight: 600; }
+  .xa-users { margin-left: auto; font-size: 12px; color: var(--xa-muted); }
+  .xa-card { background: var(--xa-card); border: 1px solid var(--xa-line); border-radius: 8px; padding: 14px 16px; }
+  .xa-card h3, .xa-card h4 { margin: 0; letter-spacing: 0; line-height: 1.3; font-weight: 600; }
+  .xa-card h3 { font-size: 18px; }
+  .xa-card h4 { font-size: 14px; }
+  .xa-muted { color: var(--xa-muted); }
+  .xa-note { font-size: 12px; color: var(--xa-muted); margin: 2px 0 10px; }
+  .xa-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .xa-top p { font-size: 12.5px; margin-top: 2px; }
+  .xa-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .xa-btn {
+    font: inherit; font-size: 13px; min-width: 84px; padding: 5px 12px;
+    border-radius: 6px; border: 1px solid var(--xa-line2);
+    background: var(--xa-btn); color: var(--xa-text); cursor: pointer;
+  }
+  .xa-btn:hover:not(:disabled) { background: var(--xa-btn-h); }
+  .xa-btn:active:not(:disabled) { opacity: .85; }
+  .xa-btn.primary { background: var(--xa-accent); border-color: var(--xa-accent); color: var(--xa-accent-t); }
+  .xa-btn.primary:hover:not(:disabled) { background: var(--xa-accent-h); }
+  .xa-btn.small { min-width: 0; padding: 2px 10px; font-size: 12px; }
+  .xa-btn:disabled { opacity: .45; cursor: default; }
+  .xa :focus-visible { outline: 2px solid var(--xa-accent); outline-offset: 2px; }
+  .xa-bar { height: 4px; background: var(--xa-line); border-radius: 2px; margin: 14px 0 10px; overflow: hidden; }
+  .xa-bar i { display: block; height: 100%; width: 0; background: var(--xa-accent); }
+  .xa-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; }
+  .xa-nums div { margin: 0; }
+  .xa-nums dt { font-size: 12px; color: var(--xa-muted); }
+  .xa-nums dd { margin: 0; font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .xa-status { margin-top: 8px; font-size: 12.5px; color: var(--xa-muted); min-height: 1.45em; }
+  .xa-status span { color: var(--xa-text); }
+  .xa-files { margin-top: 8px; font-size: 12.5px; }
+  .xa-files summary { cursor: pointer; color: var(--xa-accent); width: max-content; }
+  .xa-list {
+    margin-top: 6px; height: 104px; overflow-y: auto;
+    border: 1px solid var(--xa-line); border-radius: 6px; background: var(--xa-alt);
+    font: 11.5px/1.6 Consolas, "Cascadia Mono", monospace;
+  }
+  .xa-list:empty::before { content: "Run a scan to see the list."; display: block; padding: 6px 10px; color: var(--xa-muted); font-family: "Segoe UI", sans-serif; }
+  .xa-row { padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xa-filesfoot { margin-top: 4px; font-size: 12px; color: var(--xa-muted); min-height: 1.4em; }
+  .xa-check { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--xa-line); cursor: pointer; font-size: 13px; }
+  .xa-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--xa-accent); }
+  .xa-sofar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 0; }
+  .xa-sofar div { margin: 0; }
+  .xa-sofar dt { font-size: 12px; color: var(--xa-muted); }
+  .xa-sofar dd { margin: 0; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .xa-overlay { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,.3); }
+  .xa-overlay[hidden] { display: none; }
+  .xa-dialog { width: min(100%, 340px); background: var(--xa-card); border: 1px solid var(--xa-line2); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.2); overflow: hidden; }
+  .xa-dialog-body { padding: 16px 18px 14px; display: flex; gap: 12px; }
+  .xa-dialog-body svg { width: 22px; height: 22px; flex: none; color: var(--xa-warn); margin-top: 1px; }
+  .xa-dialog-title { font-size: 12px; color: var(--xa-muted); }
+  .xa-dialog-msg { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .xa-dialog-detail { font-size: 12px; color: var(--xa-muted); margin-top: 6px; }
+  .xa-dialog-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 10px 14px; background: var(--xa-alt); border-top: 1px solid var(--xa-line); }
+  .xa-busy { display: flex; align-items: center; gap: 12px; min-width: 220px; background: var(--xa-card); border: 1px solid var(--xa-line2); border-radius: 8px; padding: 14px 20px; box-shadow: 0 8px 24px rgba(0,0,0,.18); font-variant-numeric: tabular-nums; }
+  .xa-spin { width: 18px; height: 18px; flex: none; border: 2px solid var(--xa-line2); border-top-color: var(--xa-accent); border-radius: 50%; animation: xa-spin .8s linear infinite; }
+  @keyframes xa-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .xa-spin { animation-duration: 2s; } }
+  @media (max-width: 520px) {
+    .xa-top { flex-direction: column; }
+    .xa-nums dd { font-size: 17px; }
+    .xa-titlebar .xa-ctl i { width: 34px; }
+  }
+
+  /* Startup list replica */
+  .xa-startup { border: 1px solid var(--xa-line); border-radius: 6px; }
+  .xa-srow { display: flex; align-items: center; gap: 12px; padding: 8px 12px; }
+  .xa-srow + .xa-srow { border-top: 1px solid var(--xa-line); }
+  .xa-sicon { width: 28px; height: 28px; flex-shrink: 0; display: grid; place-items: center; border-radius: 6px; background: var(--xa-alt); border: 1px solid var(--xa-line); font-weight: 600; font-size: 13px; color: var(--xa-muted); }
+  .xa-sinfo { flex: 1; min-width: 0; }
+  .xa-sname { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xa-scmd { font-size: 11px; color: var(--xa-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xa-smeta { font-size: 11px; color: var(--xa-muted); }
+  .xa-toggle { flex-shrink: 0; display: flex; align-items: center; cursor: pointer; }
+  .xa-toggle input {
+    appearance: none; -webkit-appearance: none; margin: 0;
+    width: 40px; height: 20px; border-radius: 10px;
+    border: 1px solid var(--xa-muted); background: transparent;
+    position: relative; cursor: pointer; transition: background .15s;
+  }
+  .xa-toggle input::before { content: ""; position: absolute; top: 3px; left: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--xa-muted); transition: left .15s; }
+  .xa-toggle input:checked { background: var(--xa-accent); border-color: var(--xa-accent); }
+  .xa-toggle input:checked::before { left: 23px; background: var(--xa-accent-t); }
+  .xa-toggle input:disabled { opacity: .4; cursor: default; }
+  .xa-sstatus { margin-top: 6px; min-height: 1.4em; font-size: 12px; color: var(--xa-muted); }
+
+  /* Developer caches replica */
+  .xa-dev { border: 1px solid var(--xa-line); border-radius: 6px; }
+  .xa-dhead, .xa-drow { display: grid; grid-template-columns: 22px 30px minmax(0, 1fr) 96px 64px 64px; align-items: center; gap: 8px; padding: 7px 12px; }
+  .xa-dhead { font-size: 12px; color: var(--xa-muted); border-bottom: 1px solid var(--xa-line); background: var(--xa-alt); border-radius: 6px 6px 0 0; }
+  .xa-drow + .xa-drow { border-top: 1px solid var(--xa-line); }
+  .xa-dev input[type=checkbox] { width: 16px; height: 16px; margin: 0; accent-color: var(--xa-accent); }
+  .xa-num { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; }
+  .xa-dhead .xa-num { font-size: 12px; }
+  .xa-badge { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: -.02em; }
+  .xa-dname { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xa-ddesc { font-size: 11px; color: var(--xa-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xa-pill { justify-self: start; font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--xa-line2); color: var(--xa-muted); white-space: nowrap; }
+  .xa-pill.found { color: var(--xa-accent); border-color: var(--xa-accent); }
+  .xa-pill.done { color: var(--xa-ok); border-color: var(--xa-ok); }
+  .xa-freed { color: var(--xa-ok); font-weight: 600; }
+  .xa-empty { padding: 16px; text-align: center; color: var(--xa-muted); font-size: 13px; }
+  .xa-dfoot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px; border-top: 1px solid var(--xa-line); font-size: 12px; }
+  .xa-dfoot b { font-weight: 600; }
+  .xa-sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 2px; }
+  @media (max-width: 560px) {
+    .xa-dhead, .xa-drow { grid-template-columns: 22px 30px minmax(0, 1fr) 64px 64px; }
+    .xa-dhead > :nth-child(4), .xa-drow > :nth-child(4) { display: none; }
+  }
 
   /* Developer note */
   .letter { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 28px; max-width: 760px; }
@@ -228,16 +309,12 @@
   .people { display: flex; flex-wrap: wrap; gap: 6px; }
   .people img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--surface); background: var(--line); }
 
-  @media (max-width: 920px) {
-    .hero { padding: 40px 0 72px; }
-    .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 48px; }
-  }
-
   /* Sections */
   section { padding: 96px 0; border-top: 1px solid var(--line); }
   .kicker { font: 500 13px/1 var(--mono); color: var(--accent); margin-bottom: 16px; }
   .sec-title { font-size: clamp(1.9rem, 3.6vw, 2.7rem); max-width: 20ch; }
   .sec-intro { margin-top: 16px; color: var(--muted); max-width: 58ch; font-size: 18px; }
+  .sec-intro + .sec-intro { margin-top: 14px; }
   @media (max-width: 640px) { section { padding: 72px 0; } }
 
   /* Live usage numbers */
@@ -247,9 +324,8 @@
   @keyframes live-pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
   @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
   .live-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; align-items: start; margin-top: 8px; }
-  .live-grid span { max-width: 26ch; }
   .live-num { display: block; font: 600 clamp(2.5rem, 5.4vw, 3.8rem)/1 var(--sans); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-  .live-grid span { display: block; margin-top: 10px; color: var(--muted); }
+  .live-grid span { display: block; margin-top: 10px; color: var(--muted); max-width: 26ch; }
   .live-note { justify-self: end; align-self: end; text-align: right; }
   .live-note .hand { transform: rotate(-2deg); }
   .live-note small { display: block; margin-top: 8px; font: 400 12.5px/1.5 var(--mono); color: var(--faint); }
@@ -268,12 +344,13 @@
   .ledger .no i { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--muted); }
   .ledger ul { list-style: none; margin: 0; padding: 0; }
   .ledger li { padding: 11px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; }
-  .ledger li small { color: var(--faint); font: 400 12.5px/1.9 var(--mono); text-align: right; }
+  .ledger li small { color: var(--faint); font: 400 12.5px/1.9 var(--mono); text-align: right; white-space: nowrap; }
   @media (max-width: 760px) {
     .ledger { grid-template-columns: 1fr; }
     .ledger > div { padding: 24px; }
     .ledger > div + div { border-left: 0; border-top: 1px solid var(--line); }
-    .ledger li small { display: none; }
+    .ledger li { flex-direction: column; gap: 0; }
+    .ledger li small { text-align: left; }
   }
 
   /* Steps */
@@ -284,47 +361,31 @@
   .steps p { color: var(--muted); }
   @media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 32px; } }
 
-  /* Startup */
-  .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
-  .split .sec-intro + .sec-intro { margin-top: 14px; }
-  .startup { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-  .startup-head, .startup-row { display: grid; grid-template-columns: 1fr 90px 44px; gap: 16px; align-items: center; padding: 0 20px; }
-  .startup-head { height: 42px; font: 500 12px/1 var(--mono); color: var(--faint); border-bottom: 1px solid var(--line); }
-  .startup-row { min-height: 60px; }
-  .startup-row + .startup-row { border-top: 1px solid var(--line); }
-  .startup-row b { display: block; font-weight: 500; font-size: 15px; }
-  .startup-row span.pub { font-size: 13px; color: var(--faint); }
-  .impact { font: 500 12px/1 var(--mono); }
-  .impact.high { color: #b4532a; }
-  .impact.med { color: #a07514; }
-  .impact.low { color: var(--faint); }
-  @media (prefers-color-scheme: dark) { .impact.high { color: #e5916a; } .impact.med { color: #d8b14f; } }
-  .startup-row { cursor: pointer; transition: background-color .15s; }
-  .startup-row:hover { background: color-mix(in srgb, var(--ink) 3%, transparent); }
-  .startup-row b, .startup-row .pub { transition: opacity .2s; }
-  .startup-row.off b, .startup-row.off .pub { opacity: .5; }
-  .tog { appearance: none; border: 0; padding: 0; cursor: pointer; width: 36px; height: 20px; border-radius: 20px; background: color-mix(in srgb, var(--ink) 18%, transparent); position: relative; justify-self: end; transition: background-color .2s; }
-  .tog::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: left .2s cubic-bezier(.3,1.4,.6,1); }
-  .tog[aria-checked="true"] { background: var(--accent); }
-  .tog[aria-checked="true"]::after { left: 19px; }
-  .startup-foot { padding: 14px 20px; border-top: 1px solid var(--line); font: 400 13px/1.5 var(--mono); color: var(--muted); background: color-mix(in srgb, var(--ink) 3%, var(--surface)); transition: color .2s; }
-  .startup-foot.warn { color: #b4532a; }
-  @media (prefers-color-scheme: dark) { .startup-foot.warn { color: #e5916a; } }
-  @media (max-width: 920px) { .split { grid-template-columns: 1fr; gap: 40px; } }
+  /* Two-column feature rows */
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 64px; align-items: center; }
+  .split.flip > :first-child { order: 2; }
+  @media (max-width: 960px) { .split, .split.flip { grid-template-columns: minmax(0, 1fr); gap: 40px; } .split.flip > :first-child { order: 0; } }
+  .split + .split { margin-top: 96px; }
 
-  .extras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 72px; border-top: 1px solid var(--line); }
-  .extras div { padding: 28px 28px 0 0; }
-  .extras div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+  .extras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 96px; border-top: 1px solid var(--line); }
+  .extras div { padding: 28px 24px 0 0; }
+  .extras div + div { padding-left: 24px; border-left: 1px solid var(--line); }
   .extras h3 { font-size: 17px; margin-bottom: 8px; letter-spacing: -0.01em; }
-  .extras p { color: var(--muted); font-size: 16px; }
-  @media (max-width: 760px) {
+  .extras p { color: var(--muted); font-size: 15.5px; }
+  @media (max-width: 960px) {
+    .extras { grid-template-columns: 1fr 1fr; }
+    .extras div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .extras div:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 28px; }
+  }
+  @media (max-width: 560px) {
     .extras { grid-template-columns: 1fr; }
-    .extras div, .extras div + div { padding: 22px 0; border-left: 0; }
+    .extras div, .extras div + div { padding: 22px 0; border-left: 0; margin-top: 0; }
     .extras div + div { border-top: 1px solid var(--line); }
   }
 
-  /* Open source */
+  /* Source code */
   .oss { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start; }
+  .oss code { background: color-mix(in srgb, var(--ink) 7%, transparent); padding: 1px 5px; border-radius: 4px; }
   .repo { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
   .repo-path { font: 500 14px/1.4 var(--mono); word-break: break-all; display: flex; gap: 10px; align-items: center; }
   .repo-path svg { width: 20px; height: 20px; flex: none; }
@@ -341,6 +402,36 @@
   .faq summary::after { content: "+"; position: absolute; right: 4px; top: 16px; font: 400 24px/1 var(--mono); color: var(--faint); transition: transform .2s; }
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq details p { color: var(--muted); padding: 0 40px 22px 0; max-width: 64ch; }
+
+  /* Download */
+  .dl-tabs { display: flex; gap: 4px; margin-top: 40px; border-bottom: 1px solid var(--line); }
+  .dl-tab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 12px 18px; font: 600 16px/1 var(--sans); color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .dl-tab:hover { color: var(--ink); }
+  .dl-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .dl-tab small { font: 500 11px/1 var(--mono); color: var(--accent); }
+  .dl-panel { padding-top: 32px; max-width: 820px; }
+  .dl-panel[hidden] { display: none; }
+  .dl-panel h3 { font-size: 18px; letter-spacing: -0.01em; margin: 32px 0 6px; }
+  .dl-panel h3:first-child { margin-top: 0; }
+  .dl-panel > p, .dl-panel li { color: var(--muted); font-size: 16px; }
+  .dl-panel .actions { margin-top: 16px; }
+  .dl-meta { margin-top: 12px; font: 400 13px/1.5 var(--mono); color: var(--faint); }
+  .cmd { position: relative; display: flex; align-items: stretch; margin-top: 12px; border-radius: 10px; background: #15181d; color: #e6e4df; border: 1px solid #262a31; min-width: 0; }
+  .cmd pre { margin: 0; padding: 14px 16px; overflow-x: auto; flex: 1; min-width: 0; font: 400 13.5px/1.6 var(--mono); white-space: pre; }
+  .cmd pre::before { content: "$ "; color: #6f7684; }
+  .cmd button { flex: none; align-self: flex-start; margin: 8px 8px 0 0; appearance: none; border: 1px solid #343944; background: #1f232a; color: #c9ccd3; border-radius: 6px; padding: 6px 10px; font: 500 12px/1 var(--sans); cursor: pointer; }
+  .cmd button:hover { background: #2a2f38; color: #fff; }
+  .cmd button.copied { color: #6ccb8f; border-color: #2f6b47; }
+  .distros { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 18px; }
+  .distro, .dl-panel { min-width: 0; }
+  .distro b { display: block; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .distro span { font-size: 14px; color: var(--faint); }
+  .dl-note { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; font-size: 15px; color: var(--muted); }
+  .dl-note code { background: color-mix(in srgb, var(--ink) 7%, transparent); padding: 1px 5px; border-radius: 4px; }
+  .dl-pending { margin-top: 18px; font-size: 15px; color: var(--muted); }
+  .os-line { margin-top: 18px; font-size: 15px; color: var(--muted); max-width: 70ch; }
+  .os-line b { color: var(--ink); font-weight: 600; }
+  .os-line code, .faq code { background: color-mix(in srgb, var(--ink) 7%, transparent); padding: 1px 5px; border-radius: 4px; }
 
   /* Final CTA */
   .final { text-align: center; }
@@ -363,6 +454,9 @@
   <symbol id="i-mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M10 10l12 12M22 10L10 22" stroke="var(--bg)" stroke-width="3.2" stroke-linecap="round"/></symbol>
   <symbol id="i-win" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5.1l7.4-1v7.2H3V5.1zm0 13.8l7.4 1v-7.1H3v6.1zm8.3 1.1L21 21.4v-8.6h-9.7V20zm0-15.9v7.3H21V2.6l-9.7 1.4z"/></symbol>
   <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 015.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z"/></symbol>
+  <symbol id="i-min" viewBox="0 0 10 10"><path d="M0 5h10" stroke="currentColor"/></symbol>
+  <symbol id="i-max" viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"/></symbol>
+  <symbol id="i-close" viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"/></symbol>
 </svg>
 
 <header class="site-head" id="top">
@@ -373,11 +467,11 @@
     </button>
     <nav class="nav" id="site-nav" aria-label="Main">
       <a href="#cleans">What it cleans</a>
-      <a href="#startup">Startup</a>
+      <a href="#features">Features</a>
       <a href="#source">Source code</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary btn-sm head-cta js-download">Download</a>
+    <a href="#download" class="btn btn-primary btn-sm head-cta">Download</a>
   </div>
 </header>
 
@@ -385,47 +479,95 @@
   <div class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow"><span>Free</span><span>Open source</span><span>Windows 10 &amp; 11</span></p>
+        <p class="eyebrow"><span>Free, full version</span><span>Windows</span><span>macOS</span><span>Linux</span></p>
         <h1>Your PC isn't old. <em>It's just carrying too much.</em></h1>
-        <p class="lede">XCoreTech clears out the temp files, stale caches and startup clutter that Windows leaves lying around, and shows you exactly what it's going to remove before it touches anything.</p>
+        <p class="lede">XCoreTech clears out the temp files and browser caches your computer leaves lying around. It shows you every file it found, and asks before it deletes a single one.</p>
         <div class="actions">
-          <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary js-download"><svg><use href="#i-win"/></svg>Download for Windows</a>
-          <a href="https://github.com/mhmdrameez/xcoretechelectron" class="btn btn-quiet" target="_blank" rel="noopener"><svg><use href="#i-gh"/></svg>View source</a>
+          <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary js-primary-dl"><svg><use href="#i-win"/></svg><span>Download for Windows</span></a>
+          <a href="#download" class="btn btn-quiet js-other-os">Other systems</a>
         </div>
-        <p class="release-meta js-release-meta">Free download · Windows 10 &amp; 11</p>
+        <p class="release-meta js-release-meta">Free download · Windows, macOS and Linux</p>
         <p class="users" id="user-count" hidden>Installed on <b>0</b> PCs so far.</p>
       </div>
 
       <div class="shot">
         <div class="try-note" aria-hidden="true">
-          <p class="hand">Go on, click around.</p>
+          <p class="hand">Go on, press Scan.</p>
           <svg viewBox="0 0 34 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4c14 0 22 8 24 20"/><path d="M22 20l6 6 4-8"/></svg>
         </div>
-        <div class="app" role="region" aria-label="Try the XCoreTech cleaner. This is a demo; nothing on your computer is touched.">
-          <div class="app-bar">
-            <span class="app-title"><svg style="color:var(--win-accent)"><use href="#i-mark"/></svg>XCoreTech</span>
-            <span class="app-ctl" aria-hidden="true">
-              <svg viewBox="0 0 12 12"><path d="M1 6h10" stroke="currentColor"/></svg>
-              <svg viewBox="0 0 12 12"><rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor"/></svg>
-              <svg viewBox="0 0 12 12"><path d="M1.5 1.5l9 9M10.5 1.5l-9 9" stroke="currentColor"/></svg>
-            </span>
+
+        <div class="xa" id="xa" role="region" aria-label="Try the XCoreTech cleaner. This is a demo; nothing on your computer is read or touched.">
+          <div class="xa-titlebar" aria-hidden="true">
+            <span><svg style="color:var(--xa-accent)"><use href="#i-mark"/></svg>XCoreTech PC Optimizer</span>
+            <span class="xa-ctl"><i><svg><use href="#i-min"/></svg></i><i><svg><use href="#i-max"/></svg></i><i><svg><use href="#i-close"/></svg></i></span>
           </div>
-          <div class="app-tabs"><span class="on">Clean</span><span>Startup</span><span>History</span></div>
-          <div class="app-status"><span id="app-status-text">Scan finished · 14,906 items</span><span id="app-status-time"></span><i id="app-progress"></i></div>
-          <ul class="app-list">
-            <li data-mb="1840" data-kind="temp"><label><input type="checkbox" checked><span class="cb"></span><span class="txt"><b>Windows temporary files</b><code>C:\Windows\Temp</code></span><span class="sz">1.84 GB</span></label></li>
-            <li data-mb="1120" data-kind="update"><label><input type="checkbox" checked><span class="cb"></span><span class="txt"><b>Windows Update leftovers</b><code>C:\Windows\SoftwareDistribution\Download</code></span><span class="sz">1.12 GB</span></label></li>
-            <li data-mb="612" data-kind="browser"><label><input type="checkbox" checked><span class="cb"></span><span class="txt"><b>Browser caches</b><code>Chrome, Edge</code></span><span class="sz">612 MB</span></label></li>
-            <li data-mb="238" data-kind="thumbs"><label><input type="checkbox" checked><span class="cb"></span><span class="txt"><b>Thumbnail cache</b><code>%LocalAppData%\Microsoft\Windows\Explorer</code></span><span class="sz">238 MB</span></label></li>
-            <li data-mb="96" data-kind="dumps"><label><input type="checkbox" checked><span class="cb"></span><span class="txt"><b>Crash dumps &amp; error reports</b><code>%LocalAppData%\CrashDumps</code></span><span class="sz">96 MB</span></label></li>
-            <li data-mb="1300" data-kind="bin"><label><input type="checkbox"><span class="cb"></span><span class="txt"><b>Recycle Bin</b><code>C:\$Recycle.Bin</code></span><span class="sz">1.30 GB</span></label></li>
-          </ul>
-          <div class="app-foot" id="app-foot"><span><b id="sel-total">3.91 GB</b> <span id="foot-word">selected</span></span><button type="button" class="app-clean" id="app-clean">Clean selected</button></div>
-          <span class="sr-only" id="app-live" aria-live="polite"></span>
+          <div class="xa-body">
+            <div class="xa-head">
+              <svg class="xa-logo" aria-hidden="true"><use href="#i-mark"/></svg>
+              <span class="xa-name">XCoreTech PC Optimizer</span>
+              <span class="xa-users" id="xa-users"></span>
+            </div>
+
+            <div class="xa-card">
+              <div class="xa-top">
+                <div>
+                  <h3>Clean up junk files</h3>
+                  <p class="xa-muted">Temporary files, browser caches and leftovers Windows doesn't need.</p>
+                </div>
+                <div class="xa-actions">
+                  <button type="button" class="xa-btn" id="xa-scan">Scan</button>
+                  <button type="button" class="xa-btn primary" id="xa-clean" disabled>Clean up</button>
+                </div>
+              </div>
+              <div class="xa-bar" aria-hidden="true"><i id="xa-bar"></i></div>
+              <dl class="xa-nums">
+                <div><dt>Files found</dt><dd id="xa-files">0</dd></div>
+                <div><dt>Space you can free</dt><dd id="xa-size">0 B</dd></div>
+                <div><dt>Scan progress</dt><dd id="xa-pct">0%</dd></div>
+              </dl>
+              <p class="xa-status">Status: <span id="xa-status">Idle.</span></p>
+              <details class="xa-files" open>
+                <summary>See which files will be removed</summary>
+                <div class="xa-list" id="xa-list"></div>
+                <div class="xa-filesfoot" id="xa-note"></div>
+              </details>
+              <label class="xa-check"><input type="checkbox" id="xa-auto" checked><span>Clean up automatically when Windows starts</span></label>
+            </div>
+
+            <div class="xa-card">
+              <h4>So far</h4>
+              <dl class="xa-sofar">
+                <div><dt>Space freed</dt><dd id="xa-sf-freed">0 B</dd></div>
+                <div><dt>Clean-ups</dt><dd id="xa-sf-runs">0</dd></div>
+                <div><dt>Average time</dt><dd id="xa-sf-avg">0s</dd></div>
+              </dl>
+            </div>
+          </div>
+
+          <div class="xa-overlay" id="xa-dialog" hidden>
+            <div class="xa-dialog" role="alertdialog" aria-modal="true" aria-labelledby="xa-dialog-msg" aria-describedby="xa-dialog-detail">
+              <div class="xa-dialog-body">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5" stroke-linecap="round"/></svg>
+                <div>
+                  <div class="xa-dialog-title">Confirm Cleaning</div>
+                  <div class="xa-dialog-msg" id="xa-dialog-msg"></div>
+                  <div class="xa-dialog-detail" id="xa-dialog-detail">Only files found during the last scan will be removed. Locked files will be skipped.</div>
+                </div>
+              </div>
+              <div class="xa-dialog-foot">
+                <button type="button" class="xa-btn" id="xa-dialog-cancel">Cancel</button>
+                <button type="button" class="xa-btn primary" id="xa-dialog-ok">Clean</button>
+              </div>
+            </div>
+          </div>
+          <div class="xa-overlay" id="xa-busy" hidden>
+            <div class="xa-busy" role="status"><span class="xa-spin" aria-hidden="true"></span><span id="xa-busy-msg">Cleaning…</span></div>
+          </div>
         </div>
+
         <div class="shot-note">
           <svg viewBox="0 0 54 44" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M50 38c-14 2-30-4-38-24"/><path d="M6 18l6-6 6 6" stroke-linejoin="round"/></svg>
-          <p class="hand">Recycle Bin stays unticked. That's your call, not ours.</p>
+          <p class="hand">Same screen as the real app. This one's only pretend.</p>
         </div>
       </div>
     </div>
@@ -449,68 +591,103 @@
     <div class="wrap">
       <p class="kicker">What it cleans</p>
       <h2 class="sec-title">What it removes, and what it never touches.</h2>
-      <p class="sec-intro">A cleaner is only useful if you can trust it. So here's the whole deal, in plain words.</p>
+      <p class="sec-intro">On Windows it cleans five places. That's the whole list.</p>
 
       <div class="ledger">
         <div class="yes">
-          <h3><i>✓</i>Cleans, when you tick it</h3>
+          <h3><i>✓</i>Cleans when you press Clean up</h3>
           <ul>
-            <li>Windows &amp; app temp files <small>%TEMP%</small></li>
-            <li>Windows Update downloads that already installed <small>SoftwareDistribution</small></li>
-            <li>Browser caches <small>Chrome, Edge, Firefox</small></li>
-            <li>Thumbnail and icon caches <small>rebuilt automatically</small></li>
-            <li>Crash dumps and old error reports <small>WER</small></li>
+            <li>Your Temp folder <small>%TEMP%</small></li>
+            <li>The Windows Temp folder <small>C:\Windows\Temp</small></li>
+            <li>Prefetch files <small>Windows rebuilds them</small></li>
+            <li>Google Chrome's cache <small>Default profile</small></li>
+            <li>Microsoft Edge's cache <small>Default profile</small></li>
           </ul>
         </div>
         <div class="no">
-          <h3><i>–</i>Leaves alone, always</h3>
+          <h3><i>–</i>Never touches</h3>
           <ul>
-            <li>Documents, photos, music and videos</li>
-            <li>Saved passwords and browser sign-ins</li>
+            <li>Your documents, photos, music and videos</li>
+            <li>Browser history, passwords and cookies. Only the cache folder is cleared.</li>
+            <li>System32, WinSxS and Program Files <small>blocked in the code</small></li>
+            <li>/System, /usr, /etc and other system folders on macOS and Linux <small>blocked too</small></li>
             <li>Installed programs and their settings</li>
-            <li>Anything in the list you didn't tick</li>
           </ul>
         </div>
       </div>
+      <p class="os-line"><b>On macOS</b> it clears the Chrome, Edge and Brave caches in <code>~/Library/Caches</code> and old crash reports in <code>~/Library/Logs/DiagnosticReports</code>. <b>On Linux</b> it clears the thumbnail cache and the Chrome, Chromium, Edge and Brave caches in <code>~/.cache</code>.</p>
     </div>
   </section>
 
   <section id="how">
     <div class="wrap">
       <p class="kicker">How it works</p>
-      <h2 class="sec-title">Three clicks. No surprises.</h2>
+      <h2 class="sec-title">Scan. Check. Clean up.</h2>
       <ol class="steps">
-        <li><h3>Scan</h3><p>It looks through the usual places junk piles up and adds up what's there. Takes about as long as making a cup of tea, usually less.</p></li>
-        <li><h3>Review</h3><p>You get a plain list with sizes and folder paths. Untick anything you want to keep. Nothing has been deleted yet.</p></li>
-        <li><h3>Clean</h3><p>Only what you selected is removed. The History tab keeps a record of every run, so you always know what happened.</p></li>
+        <li><h3>Scan</h3><p>It walks through those five folders and counts what's there. You watch the number of files and the space they take go up as it finds them.</p></li>
+        <li><h3>Check</h3><p>Open "See which files will be removed" and you get the full list, path by path. When you press Clean up, it asks you to confirm first.</p></li>
+        <li><h3>Clean up</h3><p>It deletes only what the scan found. Files Windows is still using are skipped and left alone. The "So far" card keeps your running total.</p></li>
       </ol>
     </div>
   </section>
 
-  <section id="startup">
+  <section id="features">
     <div class="wrap split">
       <div>
-        <p class="kicker">Startup Booster</p>
-        <h2 class="sec-title">Most slow boots aren't Windows' fault.</h2>
-        <p class="sec-intro">It's the dozen apps that all decided they need to launch the moment you log in. XCoreTech lists every one of them, shows roughly how much each costs you at boot, and lets you switch off the ones you don't need.</p>
-        <p class="sec-intro">Nothing gets uninstalled. Changed your mind? Flip it back on.</p>
+        <p class="kicker">Apps that start when you sign in</p>
+        <h2 class="sec-title">Most slow starts aren't your system's fault.</h2>
+        <p class="sec-intro">It's the apps that all decided they need to open the moment you sign in. XCoreTech lists every one of them, with the exact command it runs and whether it's set for just you or for everyone on the computer.</p>
+        <p class="sec-intro">Flip a switch to stop one from opening. Nothing gets uninstalled, and you can flip it back any time. It reads the registry and Startup folder on Windows, LaunchAgents on macOS, and autostart entries on Linux.</p>
       </div>
-      <div class="startup" role="region" aria-label="Try the startup list. This is a demo; nothing on your computer changes.">
-        <div class="startup-head"><span>App</span><span>Impact</span><span></span></div>
-        <div class="startup-row off"><div><b>Microsoft Teams</b><span class="pub">Microsoft</span></div><span class="impact high">High</span><button type="button" class="tog" role="switch" aria-checked="false" aria-label="Microsoft Teams at startup"></button></div>
-        <div class="startup-row off"><div><b>Spotify</b><span class="pub">Spotify AB</span></div><span class="impact high">High</span><button type="button" class="tog" role="switch" aria-checked="false" aria-label="Spotify at startup"></button></div>
-        <div class="startup-row off"><div><b>Steam Client</b><span class="pub">Valve</span></div><span class="impact med">Medium</span><button type="button" class="tog" role="switch" aria-checked="false" aria-label="Steam Client at startup"></button></div>
-        <div class="startup-row"><div><b>OneDrive</b><span class="pub">Microsoft</span></div><span class="impact med">Medium</span><button type="button" class="tog" role="switch" aria-checked="true" aria-label="OneDrive at startup"></button></div>
-        <div class="startup-row" data-warn="Windows Security keeps you protected. Best left on."><div><b>Windows Security</b><span class="pub">Microsoft</span></div><span class="impact low">Low</span><button type="button" class="tog" role="switch" aria-checked="true" aria-label="Windows Security at startup"></button></div>
-        <div class="startup-foot" id="startup-foot" aria-live="polite">3 of 5 switched off · takes effect next restart</div>
+      <div class="xa" role="region" aria-label="Try the startup apps list. This is a demo; nothing on your computer changes.">
+        <div class="xa-body" style="padding-top:16px">
+          <div class="xa-card">
+            <div class="xa-sechead"><h4>Apps that start with Windows</h4><button type="button" class="xa-btn small" id="xs-refresh">Refresh</button></div>
+            <p class="xa-note">Turning an app off here only stops it from opening at sign-in. Nothing is uninstalled.</p>
+            <div class="xa-startup" id="xs-list"></div>
+            <div class="xa-sstatus" id="xs-status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap split flip">
+      <div>
+        <p class="kicker">Developer caches</p>
+        <h2 class="sec-title">Written any code lately? Check this.</h2>
+        <p class="sec-intro">npm, pnpm, pip, uv, conda and Playwright quietly keep gigabytes of downloads you'll never look at again. XCoreTech measures each one and clears the ones you tick.</p>
+        <p class="sec-intro">Your tools download anything they need again, so nothing breaks. It only removes pnpm packages and uv entries that nothing on your PC uses.</p>
+      </div>
+      <div class="xa" role="region" aria-label="Try the developer caches cleaner. This is a demo; nothing on your computer is touched.">
+        <div class="xa-body" style="padding-top:16px">
+          <div class="xa-card">
+            <div class="xa-sechead">
+              <h4>Developer caches</h4>
+              <div class="xa-actions">
+                <button type="button" class="xa-btn small" id="xd-check">Check</button>
+                <button type="button" class="xa-btn small primary" id="xd-clean" disabled>Clean selected</button>
+              </div>
+            </div>
+            <p class="xa-note">Download caches from npm, pnpm, pip, uv and conda, old temp files and unused test browsers. Your tools download anything they need again.</p>
+            <div class="xa-dev">
+              <div class="xa-dhead">
+                <input type="checkbox" id="xd-all" aria-label="Select all caches" disabled>
+                <span></span><span>Cache</span><span>Status</span><span class="xa-num">Size</span><span class="xa-num">Freed</span>
+              </div>
+              <div id="xd-list"><div class="xa-empty">Click Check to measure your developer caches.</div></div>
+              <div class="xa-dfoot"><span class="xa-muted" id="xd-status" aria-live="polite"></span><b id="xd-total">Can be freed: 0 B</b></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="wrap">
       <div class="extras">
-        <div><h3>Auto Clean</h3><p>Pick a schedule and it quietly tidies up in the background, using the same rules you set.</p></div>
-        <div><h3>History</h3><p>Every clean is logged with what was removed and how much space came back.</p></div>
-        <div><h3>Your files stay yours</h3><p>It never reads, copies or uploads your documents, photos or browsing history. It only looks where junk lives.</p></div>
+        <div><h3>Large files</h3><p>Finds the biggest files on any drive, from 50 MB up to 5 GB and beyond. Move them to the Recycle Bin (the Trash on macOS and Linux), or delete them for good. System and program folders are left out.</p></div>
+        <div><h3>Quick fixes</h3><p>On Windows: an internet fix (DNS, Winsock and IP reset), a memory clean-up, and a Windows Update and printer fix. On macOS and Linux, the internet fix flushes the DNS cache.</p></div>
+        <div><h3>Cleans when you sign in</h3><p>XCoreTech starts when you sign in, does a quick clean in the background, then waits in the system tray or menu bar until you need it.</p></div>
+        <div><h3>Updates itself</h3><p>On Windows and with the Linux AppImage, new versions download quietly and you choose when to restart. On macOS, run the install command again to update.</p></div>
       </div>
     </div>
   </section>
@@ -518,14 +695,14 @@
   <section id="source">
     <div class="wrap oss">
       <div>
-        <p class="kicker">Open source</p>
+        <p class="kicker">Source code</p>
         <h2 class="sec-title">Don't take our word for it. Read the code.</h2>
-        <p class="sec-intro">Every line of XCoreTech is public on GitHub. If you're the careful type, and you should be with anything that deletes files, you can see exactly what it does before you run it.</p>
-        <p class="sec-intro">Found a bug, or have an idea? Open an issue. Pull requests are welcome too.</p>
+        <p class="sec-intro">The full source is on GitHub. It isn't under an open-source license, but anyone can read exactly what it does before running it. If you're the careful type (and you should be, with anything that deletes files), start with <code>platform.js</code> for the folders it cleans and <code>cleaner.js</code> for how it deletes.</p>
+        <p class="sec-intro">Found a bug, or have an idea? Open an issue.</p>
       </div>
       <div class="repo">
         <div class="repo-path"><svg><use href="#i-gh"/></svg>mhmdrameez/xcoretechelectron</div>
-        <p>Electron app for Windows. Issues, releases and source all live here.</p>
+        <p>Electron app for Windows. Releases and issues live here.</p>
         <p class="repo-stats" id="repo-stats" hidden></p>
         <div class="repo-block" id="releases-block" hidden>
           <h3>Recent releases</h3>
@@ -559,6 +736,71 @@
     </div>
   </section>
 
+  <section id="download">
+    <div class="wrap">
+      <p class="kicker">Download</p>
+      <h2 class="sec-title">Install it on your computer.</h2>
+      <p class="sec-intro">Free, and the same app on all three. Pick your system.</p>
+
+      <div class="dl-tabs" role="tablist" aria-label="Operating system">
+        <button type="button" class="dl-tab" role="tab" id="tab-win" aria-controls="dl-win" aria-selected="true">Windows</button>
+        <button type="button" class="dl-tab" role="tab" id="tab-mac" aria-controls="dl-mac" aria-selected="false" tabindex="-1">macOS</button>
+        <button type="button" class="dl-tab" role="tab" id="tab-linux" aria-controls="dl-linux" aria-selected="false" tabindex="-1">Linux</button>
+      </div>
+
+      <div class="dl-panel" id="dl-win" role="tabpanel" aria-labelledby="tab-win">
+        <h3>Windows 10 and 11</h3>
+        <p>One installer for 32- and 64-bit PCs. Run it, pick a folder, done.</p>
+        <div class="actions">
+          <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary js-dl-win"><svg><use href="#i-win"/></svg>Download for Windows</a>
+        </div>
+        <p class="dl-meta js-release-meta">Free download · Windows 10 &amp; 11</p>
+        <p class="dl-note">The installer isn't code-signed yet, so Windows SmartScreen may say it doesn't recognise it. Click <b>More info</b>, then <b>Run anyway</b>.</p>
+      </div>
+
+      <div class="dl-panel" id="dl-mac" role="tabpanel" aria-labelledby="tab-mac" hidden>
+        <h3>The quick way: one command</h3>
+        <p>Open <b>Terminal</b>, paste this and press Return. It picks the right version for Apple Silicon or Intel and puts the app in Applications.</p>
+        <div class="cmd"><pre>curl -fsSL https://raw.githubusercontent.com/mhmdrameez/xcoretechelectron/main/install.sh | bash</pre><button type="button" class="js-copy">Copy</button></div>
+        <h3>Or download the .dmg</h3>
+        <div class="actions js-mac-files" hidden>
+          <a href="#" class="btn btn-quiet btn-sm" id="dl-mac-arm">Apple Silicon (M1, M2, M3, M4)</a>
+          <a href="#" class="btn btn-quiet btn-sm" id="dl-mac-x64">Intel Mac</a>
+        </div>
+        <p class="dl-pending js-pending">The macOS files are on their way with the next release. Check the <a href="https://github.com/mhmdrameez/xcoretechelectron/releases" target="_blank" rel="noopener">releases page</a>.</p>
+        <p class="dl-note">The app isn't signed with an Apple Developer ID yet. If you use the .dmg, open the app the first time with right-click → <b>Open</b>. On macOS 15 and later, go to System Settings → Privacy &amp; Security and click <b>Open Anyway</b>. The command above skips this step.</p>
+      </div>
+
+      <div class="dl-panel" id="dl-linux" role="tabpanel" aria-labelledby="tab-linux" hidden>
+        <h3>The quick way: one command</h3>
+        <p>Works on any 64-bit distro. It uses apt, dnf or zypper if you have them, otherwise it installs the AppImage with a menu entry.</p>
+        <div class="cmd"><pre>curl -fsSL https://raw.githubusercontent.com/mhmdrameez/xcoretechelectron/main/install.sh | bash</pre><button type="button" class="js-copy">Copy</button></div>
+
+        <h3>Or install it your way</h3>
+        <div class="distros js-linux-files" hidden>
+          <div class="distro">
+            <b>Ubuntu, Debian, Linux Mint, Pop!_OS</b><span>.deb package</span>
+            <div class="cmd"><pre id="cmd-deb"></pre><button type="button" class="js-copy">Copy</button></div>
+          </div>
+          <div class="distro">
+            <b>Fedora, RHEL, Rocky, AlmaLinux</b><span>.rpm package</span>
+            <div class="cmd"><pre id="cmd-dnf"></pre><button type="button" class="js-copy">Copy</button></div>
+          </div>
+          <div class="distro">
+            <b>openSUSE</b><span>.rpm package</span>
+            <div class="cmd"><pre id="cmd-zypper"></pre><button type="button" class="js-copy">Copy</button></div>
+          </div>
+          <div class="distro">
+            <b>Arch, Manjaro and everything else</b><span>AppImage, no install needed, updates itself</span>
+            <div class="cmd"><pre id="cmd-appimage"></pre><button type="button" class="js-copy">Copy</button></div>
+          </div>
+        </div>
+        <p class="dl-pending js-pending">The Linux packages are on their way with the next release. Check the <a href="https://github.com/mhmdrameez/xcoretechelectron/releases" target="_blank" rel="noopener">releases page</a>.</p>
+        <p class="dl-note">If the AppImage won't open, install FUSE 2: <code>sudo apt install libfuse2t64</code> on Ubuntu 24.04 and later, <code>libfuse2</code> on older Ubuntu and Debian, <code>fuse2</code> on Arch.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <div class="wrap">
       <p class="kicker">Questions</p>
@@ -566,23 +808,27 @@
       <div class="faq">
         <details>
           <summary>Is it really free?</summary>
-          <p>Yes. Download it, use it, keep it. No trial timer, no "upgrade to clean the rest" pop-up halfway through a scan.</p>
+          <p>Yes. It's the full version: no activation, no trial timer, no payment screen.</p>
         </details>
         <details>
           <summary>Can it delete something I need?</summary>
-          <p>It only cleans locations that hold temporary or rebuildable data, and only the items you leave ticked. Your personal files aren't on the list. If you're unsure about a category, untick it.</p>
+          <p>It only looks in a handful of temp and cache folders (the full list is above), and system folders are blocked in the code. It asks before deleting anything. The worst you'll notice is a browser loading some sites a little slower the first time while its cache fills up again.</p>
         </details>
         <details>
-          <summary>Windows showed a SmartScreen warning. Is that normal?</summary>
-          <p>It's common for newer apps from smaller developers. Click "More info", then "Run anyway". If you'd rather check first, the full source is on GitHub.</p>
+          <summary>Windows or macOS warned me about the app. Is that normal?</summary>
+          <p>Yes. It isn't code-signed yet, so your system doesn't recognise it. On Windows, click "More info", then "Run anyway". On macOS, right-click the app and choose Open, or on macOS 15 and later use "Open Anyway" in System Settings → Privacy &amp; Security. The install command avoids the macOS prompt. If you'd rather check first, the full source is on GitHub.</p>
+        </details>
+        <details>
+          <summary>Does it run in the background?</summary>
+          <p>Yes. It starts when you sign in, does a quick clean, and waits in the system tray (the menu bar on macOS). Closing the window hides it there. To quit completely, click the tray icon and choose Exit.</p>
         </details>
         <details>
           <summary>Does it send any of my data anywhere?</summary>
-          <p>Your files, file names and browsing history never leave your PC. The app does send a small usage log to our server: your PC's device name, Windows version, CPU, RAM, free disk space, approximate location, how much junk was cleaned, and error details if something goes wrong. If you type in your name and phone number, those are sent too. That log is how the live numbers on this page are counted, and it helps me fix bugs.</p>
+          <p>Your files, file names and browsing history never leave your PC. When the app opens, scans and cleans, it sends a small usage log to our server: your computer's name, system version, processor, total and free memory, roughly where you are (city and country, looked up from your IP address), how much was cleaned, and error details if something crashes. It doesn't ask for your name, email or phone number. The live numbers on this page are counted from that log.</p>
         </details>
         <details>
           <summary>How do I uninstall it?</summary>
-          <p>Like any other app: Settings → Apps → Installed apps → XCoreTech → Uninstall.</p>
+          <p>Windows: Settings → Apps → Installed apps → XCoreTech PC Optimizer → Uninstall (its settings and history go too). macOS: drag it from Applications to the Trash. Linux: <code>sudo apt remove xcoretech-disk-cleaner</code> or <code>sudo dnf remove xcoretech-disk-cleaner</code>, or just delete the AppImage.</p>
         </details>
       </div>
     </div>
@@ -593,16 +839,16 @@
       <h2 class="sec-title">Give your PC a clean start.</h2>
       <p class="sec-intro">One download. A few minutes of your time. Back to work on a faster machine.</p>
       <div class="actions">
-        <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary js-download"><svg><use href="#i-win"/></svg>Download for Windows</a>
+        <a href="https://github.com/mhmdrameez/xcoretechelectron/releases/latest" class="btn btn-primary js-primary-dl"><svg><use href="#i-win"/></svg><span>Download for Windows</span></a>
       </div>
-      <p class="release-meta js-release-meta">Free download · Windows 10 &amp; 11</p>
+      <p class="release-meta"><a href="#download">Other systems and install commands</a></p>
     </div>
   </section>
 </main>
 
 <footer class="site-foot">
   <div class="wrap">
-    <span>© 2026 XCoreTech · made by <a href="https://github.com/mhmdrameez" target="_blank" rel="noopener">@mhmdrameez</a> and contributors</span>
+    <span>© 2026 XCoreTech · made by <a href="https://github.com/mhmdrameez" target="_blank" rel="noopener">@mhmdrameez</a></span>
     <nav aria-label="Footer">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
@@ -615,10 +861,11 @@
 <script>
 (() => {
   const REPO = "mhmdrameez/xcoretechelectron";
-  // Your Apps Script web app URL (Deploy → Manage deployments → Web app URL, ends in /exec).
-  // It must answer ?type=count and ?type=total_junk.
+  // Apps Script web app (Deploy → Manage deployments → Web app URL, ends in /exec).
+  // Answers ?type=stats, plus the older ?type=count and ?type=total_junk.
   const STATS_URL = "https://script.google.com/macros/s/AKfycbxYcV6P2BKqhHiuOs7985cmZPVLMmUlmQSPculfNDUqYOuCigBOXCEyzhPxMasK6b7s/exec";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (id) => document.getElementById(id);
 
   // Header: border on scroll, mobile menu
   const head = document.querySelector(".site-head");
@@ -627,7 +874,7 @@
   onScroll();
 
   const menuBtn = document.querySelector(".menu-btn");
-  const nav = document.getElementById("site-nav");
+  const nav = $("site-nav");
   const setMenu = (open) => {
     nav.classList.toggle("open", open);
     menuBtn.setAttribute("aria-expanded", String(open));
@@ -647,27 +894,115 @@
     return months === 1 ? "a month ago" : `${months} months ago`;
   };
   const shortDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const longDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
   const firstLine = (md) => String(md || "")
     .split("\n").map((l) => l.replace(/^[#>*\-\s]+/, "").replace(/[*_`]/g, "").trim())
-    .find((l) => l && !/^(what's changed|full changelog)/i.test(l)) || "";
-  const longDate = (iso) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+    .find((l) => l && !/^(what's new|what's changed|full changelog)/i.test(l)) || "";
 
-  // Releases: newest stable installer for the buttons, plus a short changelog.
-  // If GitHub is unreachable the buttons already link to the releases page.
+  // ---------- Which system is the visitor on? ----------
+  const uaPlatform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+  const ua = navigator.userAgent || "";
+  const visitorOS = /mac/i.test(uaPlatform) || /Macintosh|Mac OS X/.test(ua) ? "mac"
+    : (/linux/i.test(uaPlatform) || /Linux|X11/.test(ua)) && !/Android/i.test(ua) ? "linux"
+    : "win";
+  const OS_NAME = { win: "Windows", mac: "macOS", linux: "Linux" };
+
+  // ---------- Download tabs ----------
+  const tabs = ["win", "mac", "linux"].map((id) => ({ id, tab: $(`tab-${id}`), panel: $(`dl-${id}`) }));
+  const showTab = (id, focus) => {
+    tabs.forEach((t) => {
+      const on = t.id === id;
+      t.tab.setAttribute("aria-selected", String(on));
+      t.tab.tabIndex = on ? 0 : -1;
+      t.panel.hidden = !on;
+      if (on && focus) t.tab.focus();
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.tab.addEventListener("click", () => showTab(t.id));
+    t.tab.addEventListener("keydown", (e) => {
+      const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (step) showTab(tabs[(i + step + tabs.length) % tabs.length].id, true);
+    });
+  });
+  showTab(visitorOS);
+  document.querySelectorAll('a[href="#download"]').forEach((a) => a.addEventListener("click", () => showTab(visitorOS)));
+  document.querySelector(".js-other-os").addEventListener("click", (e) => {
+    // "Other systems" opens on the first tab that isn't the visitor's own
+    e.preventDefault();
+    showTab(visitorOS === "win" ? "mac" : "win");
+    $("download").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  // Copy buttons on every command
+  document.querySelectorAll(".js-copy").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.previousElementSibling.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        const ta = Object.assign(document.createElement("textarea"), { value: text });
+        document.body.append(ta); ta.select(); document.execCommand("copy"); ta.remove();
+      }
+      btn.textContent = "Copied";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1600);
+    });
+  });
+
+  // Main buttons: a direct download on Windows; on macOS and Linux they open
+  // the matching tab, where the one-line install command is.
+  const primaryButtons = document.querySelectorAll(".js-primary-dl");
+  if (visitorOS !== "win") {
+    primaryButtons.forEach((a) => {
+      a.href = "#download";
+      a.querySelector("svg").remove();
+      a.querySelector("span").textContent = `Install on ${OS_NAME[visitorOS]}`;
+      a.addEventListener("click", () => showTab(visitorOS));
+    });
+  }
+
+  // Releases: real file links for every system, plus a short changelog.
+  // Until GitHub answers, buttons point at the releases page.
   getJSON(`${API}/releases?per_page=6`)
     .then((list) => {
       const stable = list.filter((r) => !r.draft && !r.prerelease);
       const latest = stable[0];
-      const exe = latest && (latest.assets || []).find((a) => /\.exe$/i.test(a.name));
+      const assets = (latest && latest.assets) || [];
+      const find = (re) => assets.find((a) => re.test(a.name) && !/\.blockmap$/i.test(a.name));
+      const version = latest ? String(latest.tag_name || "").replace(/^v/i, "") : "";
+      const exe = find(/\.exe$/i);
       if (exe) {
-        const version = String(latest.tag_name || "").replace(/^v/i, "");
         const sizeMB = Math.round(exe.size / 1048576);
-        document.querySelectorAll(".js-download").forEach((a) => { a.href = exe.browser_download_url; });
+        document.querySelectorAll(".js-dl-win").forEach((a) => { a.href = exe.browser_download_url; });
+        if (visitorOS === "win") primaryButtons.forEach((a) => { a.href = exe.browser_download_url; });
         document.querySelectorAll(".js-release-meta").forEach((el) => {
           el.textContent = `Version ${version} · ${sizeMB} MB · ${longDate(latest.published_at)}`;
         });
       }
-      const ul = document.getElementById("releases");
+      // macOS .dmg buttons
+      const dmgArm = find(/-mac-arm64\.dmg$/i), dmgX64 = find(/-mac-x64\.dmg$/i);
+      if (dmgArm || dmgX64) {
+        if (dmgArm) $("dl-mac-arm").href = dmgArm.browser_download_url; else $("dl-mac-arm").remove();
+        if (dmgX64) $("dl-mac-x64").href = dmgX64.browser_download_url; else $("dl-mac-x64").remove();
+        document.querySelector(".js-mac-files").hidden = false;
+        $("dl-mac").querySelector(".js-pending").hidden = true;
+      }
+      // Linux commands with the exact file URLs of this release
+      const deb = find(/-linux-x64\.deb$/i), rpm = find(/-linux-x64\.rpm$/i), appimage = find(/-linux-x64\.AppImage$/i);
+      if (deb || rpm || appimage) {
+        const fill = (id, asset, text) => {
+          const box = $(id).closest(".distro");
+          if (asset) $(id).textContent = text(asset.browser_download_url, asset.name); else box.remove();
+        };
+        fill("cmd-deb", deb, (u, n) => `wget -O /tmp/${n} ${u} && sudo apt install /tmp/${n}`);
+        fill("cmd-dnf", rpm, (u) => `sudo dnf install ${u}`);
+        fill("cmd-zypper", rpm, (u) => `sudo zypper install --allow-unsigned-rpm ${u}`);
+        fill("cmd-appimage", appimage, (u) => `wget -O ~/XCoreTech.AppImage ${u} && chmod +x ~/XCoreTech.AppImage && ~/XCoreTech.AppImage`);
+        document.querySelector(".js-linux-files").hidden = false;
+        $("dl-linux").querySelector(".js-pending").hidden = true;
+      }
+      const ul = $("releases");
       stable.slice(0, 4).forEach((r) => {
         const li = document.createElement("li");
         const a = document.createElement("a");
@@ -682,14 +1017,14 @@
         li.append(a, span);
         ul.append(li);
       });
-      if (ul.children.length) document.getElementById("releases-block").hidden = false;
+      if (ul.children.length) $("releases-block").hidden = false;
     })
     .catch(() => {});
 
   // Repo pulse: when code last changed, stars, and the people behind it.
   getJSON(API)
     .then((repo) => {
-      const el = document.getElementById("repo-stats");
+      const el = $("repo-stats");
       const stars = repo.stargazers_count;
       el.textContent = `Last code change ${ago(repo.pushed_at)}` + (stars ? ` · ★ ${stars.toLocaleString()}` : "");
       el.hidden = false;
@@ -698,7 +1033,7 @@
 
   getJSON(`${API}/contributors?per_page=12`)
     .then((people) => {
-      const box = document.getElementById("people");
+      const box = $("people");
       people.filter((p) => p.type === "User").forEach((p) => {
         const a = document.createElement("a");
         a.href = p.html_url; a.target = "_blank"; a.rel = "noopener"; a.title = p.login;
@@ -707,14 +1042,20 @@
         a.append(img);
         box.append(a);
       });
-      if (box.children.length > 1) document.getElementById("people-block").hidden = false;
+      if (box.children.length > 1) $("people-block").hidden = false;
     })
     .catch(() => {});
 
-
-  // ---------- Demo cleaner: tick, untick, clean, scan again ----------
-  // Pure theatre: nothing on the visitor's computer is read or touched.
-  const fmt = (mb) => (mb >= 999.5 ? (mb / 1000).toFixed(2) + " GB" : Math.round(mb) + " MB");
+  // ---------- Shared helpers for the app demos ----------
+  // Same byte format as the app (utils.js formatBytes).
+  const UNITS = ["B", "KB", "MB", "GB", "TB"];
+  const fmtBytes = (bytes) => {
+    const n = Number(bytes) || 0;
+    if (n <= 0) return "0 B";
+    const i = Math.min(4, Math.floor(Math.log(n) / Math.log(1024)));
+    const v = n / Math.pow(1024, i);
+    return `${v.toFixed(i === 0 ? 0 : v >= 100 ? 0 : v >= 10 ? 1 : 2)} ${UNITS[i]}`;
+  };
   const tween = (ms, step, ease = (p) => 1 - Math.pow(1 - p, 3)) => new Promise((done) => {
     if (reduceMotion || ms <= 0) { step(1); return done(); }
     const t0 = performance.now();
@@ -725,158 +1066,329 @@
     };
     requestAnimationFrame(frame);
   });
-
-  const app = document.querySelector(".app");
-  const rows = [...app.querySelectorAll(".app-list li")];
-  const boxOf = (li) => li.querySelector("input");
-  const szOf = (li) => li.querySelector(".sz");
-  const mbOf = (li) => Number(li.dataset.mb);
-  const statusText = document.getElementById("app-status-text");
-  const statusTime = document.getElementById("app-status-time");
-  const bar = document.getElementById("app-progress");
-  const foot = document.getElementById("app-foot");
-  const footWord = document.getElementById("foot-word");
-  const totalEl = document.getElementById("sel-total");
-  const cleanBtn = document.getElementById("app-clean");
-  const live = document.getElementById("app-live");
-  const ITEMS = 14906;
-  let state = "idle";
-
-  const selected = () => rows.filter((li) => boxOf(li).checked && !li.classList.contains("done"));
-  const selectedMB = () => selected().reduce((sum, li) => sum + mbOf(li), 0);
-  const refresh = () => {
-    const mb = selectedMB();
-    totalEl.textContent = fmt(mb);
-    cleanBtn.disabled = mb === 0;
-    cleanBtn.textContent = mb === 0 ? "Nothing selected" : "Clean selected";
-  };
-  rows.forEach((li) => boxOf(li).addEventListener("change", refresh));
-
-  const lock = (on) => {
-    app.classList.toggle("busy", on);
-    rows.forEach((li) => { boxOf(li).disabled = on || li.classList.contains("done"); });
-  };
-
-  const hex = (n = 6) => Math.floor(Math.random() * 16 ** n).toString(16).toUpperCase().padStart(n, "0");
+  const wait = (ms) => new Promise((r) => setTimeout(r, reduceMotion ? 0 : ms));
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const randInt = (a, b) => Math.floor(rand(a, b + 1));
   const pick = (list) => list[Math.floor(Math.random() * list.length)];
-  const FAKE_FILES = {
-    temp: () => `C:\\Windows\\Temp\\~DF${hex()}.tmp`,
-    update: () => `SoftwareDistribution\\Download\\${hex(8).toLowerCase()}${hex(8).toLowerCase()}.cab`,
-    browser: () => `${pick(["Chrome", "Edge"])}\\User Data\\Default\\Cache\\f_${hex().toLowerCase()}`,
-    thumbs: () => `Explorer\\thumbcache_${pick(["96", "256", "1024", "idx", "sr"])}.db`,
-    dumps: () => `CrashDumps\\${pick(["explorer.exe", "chrome.exe", "Teams.exe", "steam.exe"])}.${1000 + Math.floor(Math.random() * 9000)}.dmp`,
-    bin: () => `$Recycle.Bin\\$R${hex()}.${pick(["zip", "png", "docx", "mp4"])}`,
+  const hex = (n) => Array.from({ length: n }, () => "0123456789ABCDEF"[Math.floor(Math.random() * 16)]).join("");
+  const GB = 1024 ** 3;
+  const MB = 1024 ** 2;
+
+  // ---------- Demo: Clean up junk files (mirrors the app's main card) ----------
+  // Pure theatre: nothing on the visitor's computer is read or touched.
+  const TEMP = "C:\\Users\\you\\AppData\\Local\\Temp\\";
+  const LOCAL = "C:\\Users\\you\\AppData\\Local\\";
+  // The five Windows locations from platform.js junkTargets()
+  const JUNK = [
+    () => TEMP + pick([`~DF${hex(4)}.tmp`, `${hex(8).toLowerCase()}.tmp`, `wct${hex(4)}.tmp`, `chrome_BITS_${randInt(1000, 9999)}_${randInt(10000, 99999)}\\BIT${hex(4)}.tmp`, "msedge_installer.log", `Diagnostics\\OUTLOOK\\App${randInt(1000, 9999)}.log`]),
+    () => TEMP + pick([`${hex(8).toLowerCase()}-${hex(4).toLowerCase()}.tmp`, `vscode-inno-updater-${randInt(1700000000, 1790000000)}.log`, `npm-${randInt(1000, 99999)}\\package.tgz`]),
+    () => "C:\\Windows\\Temp\\" + pick([`MSI${hex(5).toLowerCase()}.LOG`, `~${hex(6)}.tmp`, "MpSigStub.log", `${hex(8)}-${hex(4)}.etl`]),
+    () => `C:\\Windows\\Prefetch\\${pick(["CHROME", "MSEDGE", "EXPLORER", "SPOTIFY", "CODE", "DISCORD", "STEAM", "MS-TEAMS", "WINWORD", "VLC"])}.EXE-${hex(8)}.pf`,
+    () => `${LOCAL}Google\\Chrome\\User Data\\Default\\Cache\\Cache_Data\\f_${hex(6).toLowerCase()}`,
+    () => `${LOCAL}Microsoft\\Edge\\User Data\\Default\\Cache\\Cache_Data\\f_${hex(6).toLowerCase()}`,
+  ];
+  const MAX_ROWS = 80;
+
+  const scanBtn = $("xa-scan"), cleanBtn = $("xa-clean"), barEl = $("xa-bar");
+  const filesEl = $("xa-files"), sizeEl = $("xa-size"), pctEl = $("xa-pct");
+  const statusEl = $("xa-status"), listEl = $("xa-list"), noteEl = $("xa-note");
+  const dialog = $("xa-dialog"), dlgMsg = $("xa-dialog-msg"), dlgOk = $("xa-dialog-ok"), dlgCancel = $("xa-dialog-cancel");
+  const busy = $("xa-busy"), busyMsg = $("xa-busy-msg");
+  const sofar = { freed: 0, runs: 0, ms: 0 };
+  let lastScan = null;
+  let working = false;
+
+  const setStatus = (t) => { statusEl.textContent = t; };
+  const setNums = (files, bytes, pct) => {
+    filesEl.textContent = Math.round(files).toLocaleString();
+    sizeEl.textContent = fmtBytes(bytes);
+    pctEl.textContent = `${Math.round(pct)}%`;
+    barEl.style.width = `${pct}%`;
+  };
+  const setButtons = () => {
+    scanBtn.disabled = working;
+    cleanBtn.disabled = working || !lastScan;
   };
 
   async function scan() {
-    state = "scanning";
-    lock(true);
-    foot.classList.remove("freed");
-    footWord.textContent = "found";
-    cleanBtn.classList.remove("again");
-    cleanBtn.disabled = true;
-    cleanBtn.textContent = "Scanning…";
-    statusTime.textContent = "";
-    rows.forEach((li) => {
-      li.classList.remove("done");
-      li.style.setProperty("--p", 0);
-      boxOf(li).checked = boxOf(li).defaultChecked;
-    });
-    const total = selectedMB();
-    await tween(1700, (p) => {
-      bar.style.setProperty("--p", p);
-      statusText.textContent = `Scanning… ${Math.round(ITEMS * p).toLocaleString()} items`;
-      rows.forEach((li) => { szOf(li).textContent = fmt(mbOf(li) * p); });
-      totalEl.textContent = fmt(total * p);
+    if (working) return;
+    working = true;
+    lastScan = null;
+    setButtons();
+    listEl.textContent = "";
+    noteEl.textContent = "";
+    setStatus("Scanning…");
+    const files = randInt(2600, 6800);
+    const bytes = rand(0.6, 3.4) * GB;
+    let rows = 0;
+    await tween(2600, (p) => {
+      setNums(files * p, bytes * p, p * 100);
+      const want = Math.min(MAX_ROWS, Math.floor(files * p));
+      while (rows < want) {
+        const row = document.createElement("div");
+        row.className = "xa-row";
+        row.textContent = pick(JUNK)();
+        listEl.append(row);
+        rows++;
+      }
+      listEl.scrollTop = listEl.scrollHeight;
     }, (p) => p);
-    statusText.textContent = `Scan finished · ${ITEMS.toLocaleString()} items`;
-    statusTime.textContent = "just now";
-    footWord.textContent = "selected";
-    state = "idle";
-    lock(false);
-    refresh();
-    live.textContent = `Scan finished. ${fmt(total)} selected.`;
+    if (files > MAX_ROWS) noteEl.textContent = `Showing first ${MAX_ROWS}. ${(files - MAX_ROWS).toLocaleString()} more…`;
+    lastScan = { files, bytes };
+    setStatus(`Scan complete. Found ${files} files (${fmtBytes(bytes)}).`);
+    working = false;
+    setButtons();
+  }
+
+  // The app shows a Windows message box before deleting; this is the same wording.
+  function confirmClean() {
+    return new Promise((resolve) => {
+      dlgMsg.textContent = `Delete ${lastScan.files} file(s) (${fmtBytes(lastScan.bytes)})?`;
+      dialog.hidden = false;
+      dlgOk.focus();
+      const close = (ok) => {
+        dialog.hidden = true;
+        dlgOk.onclick = dlgCancel.onclick = dialog.onkeydown = null;
+        resolve(ok);
+      };
+      dlgOk.onclick = () => close(true);
+      dlgCancel.onclick = () => close(false);
+      dialog.onkeydown = (e) => {
+        if (e.key === "Escape") close(false);
+        if (e.key === "Tab") { e.preventDefault(); (document.activeElement === dlgOk ? dlgCancel : dlgOk).focus(); }
+      };
+    });
   }
 
   async function clean() {
-    const targets = selected();
-    const total = selectedMB();
-    if (!total) return;
-    state = "cleaning";
-    lock(true);
-    cleanBtn.disabled = true;
-    footWord.textContent = "remaining";
-    statusTime.textContent = "";
+    if (working || !lastScan) return;
+    if (!(await confirmClean())) { setStatus("Cleaning cancelled."); cleanBtn.focus(); return; }
+    working = true;
+    setButtons();
+    setStatus("Cleaning…");
+    busy.hidden = false;
+    const { files, bytes } = lastScan;
+    const skipped = randInt(3, 40);                  // files Windows still has open
+    const leftBytes = skipped * rand(0.1, 1.8) * MB;
     const t0 = performance.now();
-    let freed = 0;
-    for (const li of targets) {
-      const mb = mbOf(li);
-      const nextFile = FAKE_FILES[li.dataset.kind];
-      let lastName = 0;
-      await tween(Math.min(1500, 420 + mb * 0.5), (p) => {
-        const sofar = freed + mb * p;
-        li.style.setProperty("--p", p);
-        szOf(li).textContent = fmt(mb * (1 - p));
-        totalEl.textContent = fmt(total - sofar);
-        bar.style.setProperty("--p", sofar / total);
-        cleanBtn.textContent = `Cleaning… ${Math.round((sofar / total) * 100)}%`;
-        const now = performance.now();
-        if (now - lastName > 60) { statusText.textContent = `Removing ${nextFile()}`; lastName = now; }
-      }, (p) => p);
-      freed += mb;
-      li.classList.add("done");
-      li.style.setProperty("--p", 0);
-      szOf(li).textContent = "Cleaned";
-    }
-    const secs = ((performance.now() - t0) / 1000).toFixed(1);
-    statusText.textContent = `Done · ${targets.length} ${targets.length === 1 ? "category" : "categories"} cleaned`;
-    statusTime.textContent = `${secs}s`;
-    footWord.textContent = "freed";
-    foot.classList.add("freed");
-    await tween(500, (p) => { totalEl.textContent = fmt(total * p); });
-    lock(false);
-    app.classList.add("cleaned");
-    rows.forEach((li) => { boxOf(li).disabled = true; });
-    cleanBtn.classList.add("again");
-    cleanBtn.disabled = false;
-    cleanBtn.textContent = "Scan again";
-    state = "done";
-    live.textContent = `Done. ${fmt(total)} freed.`;
+    await tween(2300, (p) => {
+      busyMsg.textContent = `Cleaning… ${Math.round(p * 100)}%`;
+      barEl.style.width = `${p * 100}%`;
+      filesEl.textContent = Math.round(files - (files - skipped) * p).toLocaleString();
+      sizeEl.textContent = fmtBytes(bytes - (bytes - leftBytes) * p);
+      const keep = Math.ceil(listEl.children.length * (1 - p));
+      while (listEl.children.length > Math.max(keep, 0)) listEl.firstChild.remove();
+    }, (p) => p);
+    busy.hidden = true;
+    const ms = performance.now() - t0;
+    listEl.textContent = "";
+    noteEl.textContent = "Cleanup complete.";
+    setNums(skipped, leftBytes, 0);
+    setStatus(`Done. Deleted ${files - skipped}, skipped ${skipped}, ${skipped} remaining.`);
+    sofar.freed += bytes - leftBytes;
+    sofar.runs += 1;
+    sofar.ms += ms;
+    $("xa-sf-freed").textContent = fmtBytes(sofar.freed);
+    $("xa-sf-runs").textContent = String(sofar.runs);
+    $("xa-sf-avg").textContent = `${(sofar.ms / sofar.runs / 1000).toFixed(1)}s`;
+    lastScan = null;
+    working = false;
+    setButtons();
+    scanBtn.focus({ preventScroll: true });
   }
 
-  cleanBtn.addEventListener("click", () => {
-    if (state === "idle") clean();
-    else if (state === "done") { app.classList.remove("cleaned"); scan(); }
+  scanBtn.addEventListener("click", scan);
+  cleanBtn.addEventListener("click", clean);
+  $("xa-auto").addEventListener("change", async () => {
+    setStatus("Updating startup setting…");
+    await wait(450);
+    setStatus("Startup setting updated.");
   });
 
-  // Start with a quick scan so the window feels alive on arrival.
-  scan();
+  // ---------- Demo: Apps that start with Windows ----------
+  const STARTUP = [
+    { name: "Microsoft Teams", cmd: '"C:\\Users\\you\\AppData\\Local\\Microsoft\\Teams\\Update.exe" --processStart "Teams.exe" --process-start-args "--system-initiated"', src: "This user", on: true },
+    { name: "Spotify", cmd: '"C:\\Users\\you\\AppData\\Roaming\\Spotify\\Spotify.exe" --autostart --minimized', src: "This user", on: true },
+    { name: "Steam", cmd: '"C:\\Program Files (x86)\\Steam\\steam.exe" -silent', src: "This user", on: true },
+    { name: "OneDrive", cmd: '"C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe" /background', src: "This user", on: true },
+    { name: "SecurityHealth", cmd: "%windir%\\system32\\SecurityHealthSystray.exe", src: "All users", on: true, locked: true },
+  ];
+  const xsList = $("xs-list"), xsStatus = $("xs-status");
+  function renderStartup() {
+    xsList.textContent = "";
+    for (const item of STARTUP) {
+      const row = document.createElement("div");
+      row.className = "xa-srow";
+      const icon = document.createElement("div");
+      icon.className = "xa-sicon";
+      icon.textContent = item.name[0].toUpperCase();
+      const info = document.createElement("div");
+      info.className = "xa-sinfo";
+      const name = document.createElement("div");
+      name.className = "xa-sname";
+      name.textContent = item.name;
+      const cmd = document.createElement("div");
+      cmd.className = "xa-scmd";
+      cmd.textContent = item.cmd;
+      cmd.title = item.cmd;
+      const meta = document.createElement("div");
+      meta.className = "xa-smeta";
+      meta.textContent = item.src;
+      info.append(name, cmd, meta);
+      const label = document.createElement("label");
+      label.className = "xa-toggle";
+      const chk = document.createElement("input");
+      chk.type = "checkbox";
+      chk.checked = item.on;
+      chk.disabled = !!item.locked;
+      chk.setAttribute("aria-label", `Start ${item.name} with Windows`);
+      if (item.locked) label.title = "This entry can't be turned off from here.";
+      chk.addEventListener("change", async () => {
+        const on = chk.checked;
+        chk.disabled = true;
+        xsStatus.textContent = on ? `Enabling "${item.name}"…` : `Disabling "${item.name}"…`;
+        await wait(380);
+        item.on = on;
+        chk.disabled = false;
+        xsStatus.textContent = on ? `✔ "${item.name}" enabled.` : `✔ "${item.name}" disabled.`;
+      });
+      label.append(chk);
+      row.append(icon, info, label);
+      xsList.append(row);
+    }
+  }
+  renderStartup();
+  $("xs-refresh").addEventListener("click", async () => {
+    xsStatus.textContent = "Refreshing…";
+    xsList.style.opacity = ".5";
+    await wait(500);
+    xsList.style.opacity = "";
+    renderStartup();
+    xsStatus.textContent = `${STARTUP.length} startup entries.`;
+  });
 
-  // ---------- Demo startup list ----------
-  const startupFoot = document.getElementById("startup-foot");
-  const startupRows = [...document.querySelectorAll(".startup-row")];
-  const toggleRow = (row) => {
-    const sw = row.querySelector(".tog");
-    const on = sw.getAttribute("aria-checked") !== "true";
-    sw.setAttribute("aria-checked", String(on));
-    row.classList.toggle("off", !on);
-    const warnRow = startupRows.find((r) => r.dataset.warn && r.classList.contains("off"));
-    const off = startupRows.filter((r) => r.classList.contains("off")).length;
-    startupFoot.classList.toggle("warn", !!warnRow);
-    startupFoot.textContent = warnRow
-      ? warnRow.dataset.warn
-      : off ? `${off} of ${startupRows.length} switched off · takes effect next restart` : "Everything starts with Windows";
-  };
-  startupRows.forEach((row) => row.addEventListener("click", () => toggleRow(row)));
+  // ---------- Demo: Developer caches (names and notes from devCaches.js) ----------
+  const DEV = [
+    { id: "uv", name: "uv cache", badge: "uv", color: "#6b4fd8", desc: "Packages uv downloaded. Only entries nothing uses are removed." },
+    { id: "npm", name: "npm package cache", badge: "npm", color: "#c53635", desc: "Copies of downloaded npm packages. npm fetches them again when needed." },
+    { id: "pnpm", name: "pnpm store (unused packages)", badge: "pn", color: "#e07b12", desc: "Only packages that no project on this PC uses are removed." },
+    { id: "pip", name: "pip cache", badge: "py", color: "#3572a5", desc: "Python packages pip downloaded. pip fetches them again when needed." },
+    { id: "conda", name: "conda package cache", badge: "C", color: "#3a9a3f", desc: "Package files that no conda environment needs." },
+    { id: "temp", name: "Temp files untouched 7+ days", badge: "T", color: "#6b7280", desc: "Files in your Temp folder that haven't changed for a week." },
+    { id: "playwright", name: "Playwright browsers no project uses", badge: "PW", color: "#2d8a31", desc: "Test browsers left behind by older Playwright versions." },
+  ];
+  const xdList = $("xd-list"), xdStatus = $("xd-status"), xdTotal = $("xd-total");
+  const xdCheck = $("xd-check"), xdClean = $("xd-clean"), xdAll = $("xd-all");
+  let devBusy = false;
+
+  const devSelected = () => DEV.filter((t) => t.status === "found" && t.selected);
+  function updateDev() {
+    const cleanable = DEV.filter((t) => t.status === "found");
+    const sel = devSelected();
+    xdTotal.textContent = `Can be freed: ${fmtBytes(sel.reduce((n, t) => n + t.bytes, 0))}`;
+    xdClean.disabled = devBusy || !sel.length;
+    xdCheck.disabled = devBusy;
+    xdAll.disabled = devBusy || !cleanable.length;
+    xdAll.checked = cleanable.length > 0 && sel.length === cleanable.length;
+    xdAll.indeterminate = sel.length > 0 && sel.length < cleanable.length;
+  }
+  function renderDev() {
+    xdList.textContent = "";
+    const LABELS = { found: ["Found", "found"], nothing: ["Nothing found", ""], cleaning: ["Cleaning…", "found"], cleaned: ["Cleaned", "done"] };
+    for (const t of DEV) {
+      const row = document.createElement("div");
+      row.className = "xa-drow";
+      const chk = document.createElement("input");
+      chk.type = "checkbox";
+      chk.checked = t.status === "found" && t.selected;
+      chk.disabled = devBusy || t.status !== "found";
+      chk.setAttribute("aria-label", `Select ${t.name}`);
+      chk.addEventListener("change", () => { t.selected = chk.checked; updateDev(); });
+      const badge = document.createElement("div");
+      badge.className = "xa-badge";
+      badge.style.background = t.color;
+      badge.textContent = t.badge;
+      const info = document.createElement("div");
+      info.style.minWidth = "0";
+      const name = document.createElement("div");
+      name.className = "xa-dname";
+      name.textContent = t.name;
+      const desc = document.createElement("div");
+      desc.className = "xa-ddesc";
+      desc.textContent = t.desc;
+      desc.title = t.desc;
+      info.append(name, desc);
+      const [label, cls] = LABELS[t.status];
+      const pill = document.createElement("span");
+      pill.className = `xa-pill ${cls}`;
+      pill.textContent = label;
+      const size = document.createElement("span");
+      size.className = "xa-num";
+      size.textContent = fmtBytes(t.bytes);
+      const freed = document.createElement("span");
+      freed.className = "xa-num xa-freed";
+      freed.textContent = t.freed ? fmtBytes(t.freed) : "";
+      row.append(chk, badge, info, pill, size, freed);
+      xdList.append(row);
+    }
+    updateDev();
+  }
+
+  xdCheck.addEventListener("click", async () => {
+    if (devBusy) return;
+    devBusy = true;
+    updateDev();
+    xdStatus.textContent = "Checking…";
+    await wait(1100);
+    for (const t of DEV) {
+      const has = t.id === "npm" || t.id === "temp" || Math.random() < 0.6;
+      t.bytes = has ? rand(t.id === "playwright" ? 400 : 60, t.id === "npm" || t.id === "playwright" ? 4200 : 1800) * MB : 0;
+      t.status = has ? "found" : "nothing";
+      t.selected = has;
+      t.freed = 0;
+    }
+    devBusy = false;
+    const total = DEV.filter((t) => t.status === "found").reduce((n, t) => n + t.bytes, 0);
+    xdStatus.textContent = total ? `${fmtBytes(total)} can be freed.` : "Nothing to clean. Your caches are tidy.";
+    renderDev();
+  });
+
+  xdClean.addEventListener("click", async () => {
+    const chosen = devSelected();
+    if (devBusy || !chosen.length) return;
+    devBusy = true;
+    xdStatus.textContent = "Cleaning developer caches…";
+    for (const t of chosen) {
+      t.status = "cleaning";
+      renderDev();
+      await wait(500 + Math.min(1100, t.bytes / MB / 3));
+      t.freed = t.bytes;
+      t.bytes = 0;
+      t.status = "cleaned";
+      t.selected = false;
+    }
+    devBusy = false;
+    const freed = chosen.reduce((n, t) => n + t.freed, 0);
+    xdStatus.textContent = `Developer caches: freed ${fmtBytes(freed)}.`;
+    renderDev();
+  });
+
+  xdAll.addEventListener("change", () => {
+    DEV.forEach((t) => { if (t.status === "found") t.selected = xdAll.checked; });
+    renderDev();
+  });
+
+  // Run one scan on arrival so the window isn't sitting there empty.
+  setTimeout(scan, 900);
 
   // ---------- Live usage numbers from the XCoreTech log ----------
   // Shown only when real numbers come back; nothing is ever made up.
-  const liveSection = document.getElementById("live");
-  const liveDevices = document.getElementById("live-devices");
-  const liveJunk = document.getElementById("live-junk");
-  const liveUpdated = document.getElementById("live-updated");
-  const liveCleanups = document.getElementById("live-cleanups");
-  const heroUsers = document.getElementById("user-count");
+  const liveSection = $("live");
+  const liveDevices = $("live-devices");
+  const liveJunk = $("live-junk");
+  const liveUpdated = $("live-updated");
+  const liveCleanups = $("live-cleanups");
+  const heroUsers = $("user-count");
   const fmtJunk = (mb) => {
     if (mb < 1024) return `${Math.round(mb)} MB`;
     const gb = mb / 1024;
@@ -906,6 +1418,7 @@
     if (devices) {
       heroUsers.hidden = false;
       heroUsers.querySelector("b").textContent = devices.toLocaleString();
+      $("xa-users").textContent = `${devices.toLocaleString()}+ Users`;   // the app shows the same badge
     }
     const from = { ...shown };
     await tween(from.devices ? 800 : 1400, (p) => {
