@@ -12,6 +12,9 @@
 <meta property="og:title" content="XCoreTech PC Optimizer">
 <meta property="og:description" content="A free cleaner for Windows, macOS and Linux that shows you every file before it removes it.">
 <meta property="og:type" content="website">
+<link rel="icon" href="assets/app-icon.ico" sizes="any">
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -451,7 +454,27 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M10 10l12 12M22 10L10 22" stroke="var(--bg)" stroke-width="3.2" stroke-linecap="round"/></symbol>
+  <!-- The app's own icon (xcoretechelectron/assets/app-icon.svg and app-icon-small.svg) -->
+  <symbol id="i-app" viewBox="0 0 256 256">
+    <rect x="8" y="8" width="240" height="240" rx="56" fill="#2350B8"/>
+    <g transform="rotate(32 128 140) translate(-4 2)">
+      <rect x="118" y="26" width="20" height="112" rx="10" fill="#FFFFFF"/>
+      <rect x="98" y="128" width="60" height="22" rx="7" fill="#FFC845"/>
+      <path d="M100 150 H156 L176 210 C150 222 106 222 80 210 Z" fill="#FFFFFF"/>
+      <path d="M114 160 L106 210 M128 160 L128 214 M142 160 L150 210" stroke="#2350B8" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <path d="M66 52 C68 66 72 70 86 72 C72 74 68 78 66 92 C64 78 60 74 46 72 C60 70 64 66 66 52 Z" fill="#FFC845"/>
+    <path d="M100 96 C101 103 103 105 110 106 C103 107 101 109 100 116 C99 109 97 107 90 106 C97 105 99 103 100 96 Z" fill="#FFFFFF" opacity=".9"/>
+  </symbol>
+  <symbol id="i-app-sm" viewBox="0 0 32 32">
+    <rect x="0.5" y="0.5" width="31" height="31" rx="7" fill="#2350B8"/>
+    <g transform="rotate(32 16 17.5)">
+      <rect x="14.25" y="3" width="3.5" height="14" rx="1.75" fill="#FFFFFF"/>
+      <rect x="11.5" y="16" width="9" height="3.5" rx="1" fill="#FFC845"/>
+      <path d="M12 19.5 H20 L22.5 27 C19 28.5 13 28.5 9.5 27 Z" fill="#FFFFFF"/>
+    </g>
+    <path d="M7.5 5 C7.8 7.2 8.6 8 10.8 8.3 C8.6 8.6 7.8 9.4 7.5 11.6 C7.2 9.4 6.4 8.6 4.2 8.3 C6.4 8 7.2 7.2 7.5 5 Z" fill="#FFC845"/>
+  </symbol>
   <symbol id="i-win" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5.1l7.4-1v7.2H3V5.1zm0 13.8l7.4 1v-7.1H3v6.1zm8.3 1.1L21 21.4v-8.6h-9.7V20zm0-15.9v7.3H21V2.6l-9.7 1.4z"/></symbol>
   <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 00-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 015.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0012 .5z"/></symbol>
   <symbol id="i-min" viewBox="0 0 10 10"><path d="M0 5h10" stroke="currentColor"/></symbol>
@@ -461,7 +484,7 @@
 
 <header class="site-head" id="top">
   <div class="wrap">
-    <a href="#top" class="brand"><svg class="brand-mark"><use href="#i-mark"/></svg>XCoreTech</a>
+    <a href="#top" class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#i-app"/></svg>XCoreTech</a>
     <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -498,12 +521,12 @@
 
         <div class="xa" id="xa" role="region" aria-label="Try the XCoreTech cleaner. This is a demo; nothing on your computer is read or touched.">
           <div class="xa-titlebar" aria-hidden="true">
-            <span><svg style="color:var(--xa-accent)"><use href="#i-mark"/></svg>XCoreTech PC Optimizer</span>
+            <span><svg><use href="#i-app-sm"/></svg>XCoreTech PC Optimizer</span>
             <span class="xa-ctl"><i><svg><use href="#i-min"/></svg></i><i><svg><use href="#i-max"/></svg></i><i><svg><use href="#i-close"/></svg></i></span>
           </div>
           <div class="xa-body">
             <div class="xa-head">
-              <svg class="xa-logo" aria-hidden="true"><use href="#i-mark"/></svg>
+              <svg class="xa-logo" aria-hidden="true"><use href="#i-app"/></svg>
               <span class="xa-name">XCoreTech PC Optimizer</span>
               <span class="xa-users" id="xa-users"></span>
             </div>
@@ -989,7 +1012,8 @@
         $("dl-mac").querySelector(".js-pending").hidden = true;
       }
       // Linux commands with the exact file URLs of this release
-      const deb = find(/-linux-x64\.deb$/i), rpm = find(/-linux-x64\.rpm$/i), appimage = find(/-linux-x64\.AppImage$/i);
+      // electron-builder uses each format's own arch name: amd64 for .deb, x86_64 for .rpm and AppImage
+      const deb = find(/-linux-(amd64|x64)\.deb$/i), rpm = find(/-linux-(x86_64|x64)\.rpm$/i), appimage = find(/-linux-(x86_64|x64)\.AppImage$/i);
       if (deb || rpm || appimage) {
         const fill = (id, asset, text) => {
           const box = $(id).closest(".distro");
