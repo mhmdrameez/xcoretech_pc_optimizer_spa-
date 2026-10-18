@@ -1,0 +1,49 @@
+# XCoreTech PC Optimizer
+
+> XCoreTech PC Optimizer is a free, open-source (GNU GPL-3.0) desktop cleaner for Windows, macOS and Linux. It clears temp files and browser caches, finds large files, cleans developer caches (npm, pnpm, pip, uv, conda, Playwright), lets you turn off apps that start at sign-in, and always lists every file and asks before it deletes anything. Built with Electron by XCoreTech (GitHub: mhmdrameez).
+
+Website: https://xcoretech.vercel.app/
+Source code: https://github.com/mhmdrameez/xcoretechelectron
+Downloads: https://github.com/mhmdrameez/xcoretechelectron/releases/latest
+License: GNU General Public License v3.0 or later
+Price: free (no trial, no activation, no payment screen)
+Latest version: 1.3.33 (October 2026)
+
+## Install
+
+- Windows 10 and 11 (32- and 64-bit): download `XCoreTech-PC-Optimizer-Setup-<version>.exe` from the latest release and run it. The installer isn't code-signed yet, so SmartScreen may ask you to click "More info" then "Run anyway".
+- macOS (Apple Silicon and Intel) and Linux (64-bit), one command in a terminal:
+  `curl -fsSL https://raw.githubusercontent.com/mhmdrameez/xcoretechelectron/main/install.sh | bash`
+  On macOS it installs to /Applications. On Linux it uses apt (.deb), dnf/yum/zypper (.rpm), or installs the AppImage to ~/.local/bin with a menu entry.
+- Linux packages by hand: `.deb` for Ubuntu, Debian, Linux Mint and Pop!_OS; `.rpm` for Fedora, RHEL, Rocky, AlmaLinux and openSUSE; `.AppImage` for Arch, Manjaro and any other distro (needs FUSE 2 / libfuse2).
+- macOS .dmg: the app isn't signed with an Apple Developer ID yet; open it the first time with right-click > Open, or System Settings > Privacy & Security > Open Anyway on macOS 15+.
+
+## What it cleans
+
+- Windows: the user Temp folder (%TEMP%), C:\Windows\Temp, C:\Windows\Prefetch, and the Google Chrome and Microsoft Edge caches (Default profile).
+- macOS: Chrome, Edge and Brave caches in ~/Library/Caches, and old crash reports in ~/Library/Logs/DiagnosticReports.
+- Linux: the thumbnail cache and the Chrome, Chromium, Edge and Brave caches in ~/.cache.
+- Never touched: documents, photos, music and videos; browser history, passwords and cookies (only cache folders are cleared); system folders such as System32, WinSxS, Program Files, /System, /usr and /etc (blocked in the code); installed programs.
+
+## Features
+
+- Junk cleanup with a full list of files to be removed and a confirmation before deleting. Files in use are skipped.
+- Large file finder (50 MB to 5 GB+) on any drive: move to Recycle Bin / Trash or delete permanently. System and program folders are left out.
+- Developer caches: npm cache, pnpm store (unused packages only), pip cache, uv cache, conda package cache, Temp files untouched for 7+ days, and Playwright browsers no project uses. Tools re-download anything they need.
+- Apps that start at sign-in, with on/off switches: Windows registry and Startup folder, macOS LaunchAgents, Linux autostart entries. Nothing is uninstalled.
+- Automatic clean at sign-in, then it waits in the system tray / menu bar.
+- Quick fixes: on Windows an internet fix (DNS, Winsock and IP reset), memory clean-up, and a Windows Update & printer fix; on macOS and Linux a DNS cache flush.
+- Automatic updates on Windows and with the Linux AppImage.
+
+## Privacy
+
+Files, file names and browsing history never leave the computer. When the app opens, scans and cleans it sends a small usage log: computer name, system version, processor, total and free memory, approximate location (city and country from the IP address), how much was cleaned, and crash details. It does not ask for a name, email or phone number. The live install and cleanup counts on the website come from this log.
+
+## Contributing
+
+Open source under GPL-3.0. Bug reports, feature ideas and pull requests are welcome at https://github.com/mhmdrameez/xcoretechelectron/issues. To run from source: `git clone https://github.com/mhmdrameez/xcoretechelectron.git && cd xcoretechelectron && npm install && npm start`. Tests: `npm run test:ci`.
+
+## Contact
+
+- Email: xcoretech@yahoo.com
+- Issues: https://github.com/mhmdrameez/xcoretechelectron/issues
